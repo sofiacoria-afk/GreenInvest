@@ -8,10 +8,22 @@ type StockResult = {
   exchange: string;
   currency: string;
   currentPrice: number;
-  firstPrice: number;
   returnPercent: number;
   range: string;
   source: string;
+};
+
+type EnvironmentResult = {
+  status: "green" | "yellow" | "red" | "gray";
+  label: string;
+  message: string;
+  changePercent?: number;
+  latestYear?: number;
+  previousYear?: number;
+  latestTotal?: number;
+  unit?: string;
+  sourceName?: string;
+  sourceUrl?: string;
 };
 
 const periodNames: Record<string, string> = {
@@ -21,10 +33,25 @@ const periodNames: Record<string, string> = {
   "5y": "5 años",
 };
 
+const statusStyles = {
+  green: "border-lime-300 bg-lime-100 text-lime-950",
+  yellow: "border-amber-300 bg-amber-100 text-amber-950",
+  red: "border-red-300 bg-red-100 text-red-950",
+  gray: "border-slate-300 bg-slate-100 text-slate-700",
+};
+
+const statusDots = {
+  green: "bg-green-600",
+  yellow: "bg-amber-500",
+  red: "bg-red-600",
+  gray: "bg-slate-400",
+};
+
 export default function Home() {
   const [ticker, setTicker] = useState("WALMEX.MX");
   const [range, setRange] = useState("1y");
   const [result, setResult] = useState<StockResult | null>(null);
+  const [environment, setEnvironment] = useState<EnvironmentResult | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -33,18 +60,26 @@ export default function Home() {
     setLoading(true);
     setError("");
     setResult(null);
+    setEnvironment(null);
 
     try {
-      const response = await fetch(
+      const stockResponse = await fetch(
         `/api/stock?ticker=${encodeURIComponent(ticker)}&range=${range}`
       );
-      const data = await response.json();
+      const stockData = await stockResponse.json();
 
-      if (!response.ok) {
-        throw new Error(data.error ?? "No fue posible consultar la empresa.");
+      if (!stockResponse.ok) {
+        throw new Error(
+          stockData.error ?? "No fue posible consultar la empresa."
+        );
       }
 
-      setResult(data);
+      setResult(stockData);
+
+      const environmentResponse = await fetch(
+        `/api/environment?ticker=${encodeURIComponent(stockData.ticker)}`
+      );
+      setEnvironment(await environmentResponse.json());
     } catch (searchError) {
       setError(
         searchError instanceof Error
@@ -67,8 +102,8 @@ export default function Home() {
           </p>
           <h1 className="mt-3 text-5xl font-bold tracking-tight">GREENInvest</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-            Consulta el rendimiento de empresas públicas de México y Estados
-            Unidos de una forma clara y fácil de entender.
+            Consulta el rendimiento financiero y la evolución de emisiones de
+            empresas públicas de México y Estados Unidos.
           </p>
         </header>
 
@@ -93,7 +128,7 @@ export default function Home() {
             </p>
 
             <label className="mt-5 block text-sm font-semibold" htmlFor="range">
-              Periodo
+              Periodo financiero
             </label>
             <select
               id="range"
@@ -112,7 +147,7 @@ export default function Home() {
               disabled={loading}
               className="mt-6 w-full rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
             >
-              {loading ? "Consultando..." : "Ver rendimiento"}
+              {loading ? "Consultando..." : "Ver resultados"}
             </button>
           </form>
 
@@ -163,19 +198,66 @@ export default function Home() {
                 </div>
 
                 <p className="mt-6 text-xs text-emerald-200">
-                  Fuente: {result.source}. El rendimiento se calcula comparando
-                  el primer y el último precio ajustado disponible del periodo.
+                  Fuente: {result.source}. Rendimiento calculado con el primer y
+                  último precio ajustado disponible.
                 </p>
               </>
             )}
           </section>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-600">
-          El indicador de emisiones de carbono se agregará con datos ambientales
-          almacenados en Supabase. GREENInvest es una herramienta educativa y no
-          constituye asesoría financiera.
-        </div>
+        {environment && (
+          <section
+            className={`mt-6 rounded-3xl border p-7 ${
+              statusStyles[environment.status]
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span
+                className={`h-4 w-4 rounded-full ${
+                  statusDots[environment.status]
+                }`}
+              />
+              <h2 className="text-xl font-bold">{environment.label}</h2>
+            </div>
+            <p className="mt-3">{environment.message}</p>
+
+            {environment.changePercent !== undefined && (
+              <div className="mt-4 text-sm">
+                <p>
+                  Cambio de Scope 1 + 2:{" "}
+                  <strong>
+                    {environment.changePercent > 0 ? "+" : ""}
+                    {environment.changePercent.toFixed(2)}%
+                  </strong>{" "}
+                  ({environment.previousYear}–{environment.latestYear})
+                </p>
+                <p className="mt-1">
+                  Total más reciente:{" "}
+                  {environment.latestTotal?.toLocaleString("es-MX")}{" "}
+                  {environment.unit}
+                </p>
+              </div>
+            )}
+
+            {environment.sourceUrl && (
+              <a
+                className="mt-4 inline-block text-sm font-semibold underline"
+                href={environment.sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Ver fuente: {environment.sourceName}
+              </a>
+            )}
+          </section>
+        )}
+
+        <p className="mt-8 text-sm text-slate-500">
+          El semáforo muestra la tendencia de emisiones Scope 1 y 2, no califica
+          todo el impacto ambiental de la empresa. GREENInvest es una herramienta
+          educativa y no constituye asesoría financiera.
+        </p>
       </section>
     </main>
   );
