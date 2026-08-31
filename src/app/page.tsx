@@ -258,6 +258,10 @@ export default function Home() {
           todo el impacto ambiental de la empresa. GREENInvest es una herramienta
           educativa y no constituye asesoría financiera.
         </p>
+        <p className="mt-3 text-xs text-slate-400">
+          Fuentes de datos: Yahoo Finance, Supabase y reportes oficiales de
+          sustentabilidad de las empresas.
+        </p>
       </section>
     </main>
   );
