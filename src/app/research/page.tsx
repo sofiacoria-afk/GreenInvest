@@ -16,14 +16,14 @@ const globalExamples = [
 ];
 
 const competitors = [
-  { name: "MSCI ESG Ratings", type: "Benchmark", fact: "Industry-relative ESG ratings from AAA to CCC.", gap: "GREENInvest focuses on a smaller, simpler view of Mexican companies.", risk: "Low", source: "https://www.msci.com/data-and-analytics/sustainability-solutions/esg-ratings" },
-  { name: "Morningstar Sustainalytics", type: "ESG Research", fact: "ESG Risk Ratings use five risk levels and cover 16,000+ companies.", gap: "GREENInvest aims to make the comparison easier for non-expert users.", risk: "Low", source: "https://www.sustainalytics.com/corporate-solutions/esg-solutions/esg-risk-ratings" },
-  { name: "S&P Global Sustainable1", type: "ESG Data", fact: "ESG scores evaluate material sustainability risks, opportunities, and impacts.", gap: "GREENInvest presents fewer indicators in a simpler format.", risk: "Low", source: "https://www.spglobal.com/sustainable1/en/solutions/esg-scores-data/" },
-  { name: "Clarity AI", type: "Sustainability Technology", fact: "Offers ESG data for 40,000+ issuers, including GHG emissions, waste, and water indicators.", gap: "GREENInvest starts with a small group of Mexican public companies.", risk: "Medium", source: "https://clarity.ai/raw-data-solutions/" },
-  { name: "LSEG ESG Scores and Data", type: "Financial + ESG Data", fact: "Covers 16,000+ companies with 240+ standardized sustainability metrics.", gap: "GREENInvest is designed as a simple student-built comparison experience.", risk: "Medium", source: "https://www.lseg.com/en/data-analytics/sustainable-finance/sustainability-ratings-and-data" },
-  { name: "BlackRock Aladdin Sustainability", type: "Investment Platform", fact: "Integrates 15,000+ ESG metrics into investment and risk-management workflows.", gap: "GREENInvest is aimed at a much simpler research experience rather than institutional workflows.", risk: "High", source: "https://www.blackrock.com/aladdin/platforms/products/aladdin-sustainability" },
-  { name: "Bloomberg Sustainable Finance", type: "Financial Information", fact: "Combines ESG data, research, analytics, climate tools, and financial-market information.", gap: "GREENInvest focuses on an accessible comparison of financial and environmental information.", risk: "High", source: "https://professional.bloomberg.com/products/bloomberg-terminal/sustainable-finance/" },
-  { name: "ISS ESG", type: "ESG Research", fact: "Provides sustainability research, ratings, screening, climate data, and analytics for investors.", gap: "GREENInvest keeps the information smaller and focused on Mexican listed companies.", risk: "Medium", source: "https://www.issgovernance.com/esg/" },
+  { name: "MSCI ESG Ratings", type: "Benchmark", fact: "Industry-relative ESG ratings from AAA to CCC.", gap: "MSCI ESG Ratings is sustainability-focused: it evaluates financially relevant ESG risks and opportunities rather than presenting a simple company stock-performance comparison. GREENInvest combines financial performance with environmental indicators for a focused set of Mexican listed companies.", risk: "Low", source: "https://www.msci.com/data-and-analytics/sustainability-solutions/esg-ratings" },
+  { name: "Morningstar Sustainalytics", type: "ESG Research", fact: "ESG Risk Ratings use five risk levels and cover 16,000+ companies.", gap: "Sustainalytics focuses on ESG risk exposure and management. GREENInvest adds a simple financial-performance view alongside environmental information for Mexican listed companies, designed for non-expert users.", risk: "Low", source: "https://www.sustainalytics.com/corporate-solutions/esg-solutions/esg-risk-ratings" },
+  { name: "S&P Global Sustainable1", type: "ESG Data", fact: "ESG scores evaluate material sustainability risks, opportunities, and impacts.", gap: "S&P Global Sustainable1 provides detailed sustainability scores and data that can connect with broader financial and market datasets in the S&P Global ecosystem. GREENInvest uses a smaller set of financial and environmental indicators in one simpler Mexico-focused comparison.", risk: "Low", source: "https://www.spglobal.com/sustainable1/en/solutions/esg-scores-data/" },
+  { name: "Clarity AI", type: "Sustainability Technology", fact: "Offers ESG data for 40,000+ issuers, including GHG emissions, waste, and water indicators.", gap: "Clarity AI’s referenced solution focuses on ESG and sustainability data, including emissions, waste, and water indicators. GREENInvest pairs environmental information with financial performance and starts with a focused set of Mexican public companies.", risk: "Medium", source: "https://clarity.ai/raw-data-solutions/" },
+  { name: "LSEG ESG Scores and Data", type: "Financial + ESG Data", fact: "Covers 16,000+ companies with 240+ standardized sustainability metrics.", gap: "LSEG provides both financial/company data and extensive ESG information for professional analysis. GREENInvest also brings financial and environmental information together, but in a much simpler comparison designed around a small set of Mexican listed companies.", risk: "Medium", source: "https://www.lseg.com/en/data-analytics/sustainable-finance/sustainability-ratings-and-data" },
+  { name: "BlackRock Aladdin Sustainability", type: "Investment Platform", fact: "Integrates 15,000+ ESG metrics into investment and risk-management workflows.", gap: "Aladdin integrates sustainability data and climate analytics into institutional investment, risk-management, and financial-model workflows. GREENInvest provides a much simpler company-level view of financial performance and environmental information for Mexican listed companies.", risk: "High", source: "https://www.blackrock.com/aladdin/platforms/products/aladdin-sustainability" },
+  { name: "Bloomberg Sustainable Finance", type: "Financial Information", fact: "Combines ESG data, research, analytics, climate tools, and financial-market information.", gap: "Bloomberg provides both financial-market information and extensive ESG, climate, research, and analytics tools for professional users. GREENInvest narrows this to an accessible comparison of financial performance and environmental information for Mexican listed companies.", risk: "High", source: "https://professional.bloomberg.com/products/bloomberg-terminal/sustainable-finance/" },
+  { name: "ISS ESG", type: "ESG Research", fact: "Provides sustainability research, ratings, screening, climate data, and analytics for investors.", gap: "ISS ESG focuses on sustainability research, ratings, screening, climate data, and ESG analytics. GREENInvest adds a simple financial-performance comparison alongside environmental information and focuses on Mexican listed companies.", risk: "Medium", source: "https://www.issgovernance.com/esg/" },
 ];
 
 export default function ResearchPage() {
@@ -79,38 +79,38 @@ export default function ResearchPage() {
         <a className="font-semibold text-emerald-700 underline" href="/">Back to GREENInvest</a>
       </header>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Research intake</p>
         <div className="mt-4 grid gap-3 md:grid-cols-[1fr_auto]">
           <input aria-label="Research topic" value={researchQuery} onChange={(event) => setResearchQuery(event.target.value)} placeholder="Example: Sustainable investment platforms" className="rounded-xl border border-emerald-200 px-4 py-3" />
-          <button className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white" type="button" onClick={() => setSearch(researchQuery)}>Research</button>
+          <button className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={() => setSearch(researchQuery)}>Search</button>
         </div>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Global benchmarks</p>
         <h2>5 Global Examples</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {globalExamples.map((item) => (
             <article className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5" key={item.name}>
-              <h3>{item.name}</h3>
+              <h3 className="mt-1 text-lg font-bold text-emerald-900">{item.name}</h3>
               <p>{item.detail}</p>
-              <a href={item.source} target="_blank" rel="noreferrer">View source</a>
+              <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Mexico localization</p>
         <h2>Sustainable Investing in Mexico</h2>
         <p className="sectionText">
           Mexico introduced its Sustainable Taxonomy in 2023 to help identify economic activities that contribute to sustainability and environmental protection. GREENInvest uses this context to explore a simpler way to compare financial and environmental information for Mexican public companies.
         </p>
-        <a href="https://www.gob.mx/shcp/documentos/taxonomia-sostenible-de-mexico" target="_blank" rel="noreferrer">Source: Secretaría de Hacienda y Crédito Público</a>
+        <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href="https://www.gob.mx/shcp/documentos/taxonomia-sostenible-de-mexico" target="_blank" rel="noreferrer">Source: Secretaría de Hacienda y Crédito Público</a>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
           <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Market research</p><h2>8 Competitors &amp; Substitutes</h2></div>
           <span className="self-start rounded-full bg-emerald-100 px-3 py-2 text-xs font-bold text-emerald-800">8 researched platforms</span>
@@ -119,16 +119,16 @@ export default function ResearchPage() {
           {competitors.map((item) => (
             <article className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5" key={item.name}>
               <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">{item.type}</p>
-              <h3>{item.name}</h3>
+              <h3 className="mt-1 text-lg font-bold text-emerald-900">{item.name}</h3>
               <p>{item.fact}</p>
               <p><strong>GREENInvest difference:</strong> {item.gap}</p>
-              <a href={item.source} target="_blank" rel="noreferrer">View source</a>
+              <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Comparison</p>
         <h2>Competitor Comparison Table</h2>
         <div className="my-4 grid gap-3 md:grid-cols-[1fr_240px]">
@@ -150,24 +150,31 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Risk map</p>
         <h2>Competitive Risk Map</h2>
         <p className="sectionText">A simple project-level view of how directly each researched platform overlaps with GREENInvest's planned research experience.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {["Low", "Medium", "High"].map((level) => (
-            <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5" key={level}>
-              <strong>{level}</strong>
-              <span>{competitors.filter((item) => item.risk === level).map((item) => item.name).join(" · ")}</span>
-            </div>
-          ))}
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {["Low", "Medium", "High"].map((level) => {
+            const tone = level === "Low" ? "border-emerald-200 bg-emerald-50 text-emerald-900" : level === "Medium" ? "border-amber-200 bg-amber-50 text-amber-900" : "border-rose-200 bg-rose-50 text-rose-900";
+            const dot = level === "Low" ? "bg-emerald-500" : level === "Medium" ? "bg-amber-500" : "bg-rose-500";
+            return (
+              <div className={"rounded-2xl border-2 p-6 " + tone} key={level}>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className={"h-3 w-3 rounded-full " + dot}></span>
+                  <strong className="text-xl">{level} Risk</strong>
+                </div>
+                <p className="text-sm font-medium leading-6">{competitors.filter((item) => item.risk === level).map((item) => item.name).join(" · ")}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
-      <section className="mt-6 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
           <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Saved research</p><h2>Saved Results</h2></div>
-          <button className="self-start rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white" type="button" onClick={saveResearch}>Save Research</button>
+          <button className="self-start rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={saveResearch}>Save Research</button>
         </div>
         <p className="sectionText">{saveStatus || "Save the current Week 2 research summary to Supabase."}</p>
         <div className="mt-4 grid gap-3">
