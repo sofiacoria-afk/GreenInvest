@@ -88,31 +88,31 @@ export default function ResearchPage() {
       </section>
 
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Global benchmarks</p>
+        <p className="text-xs font-bold uppercase tracking-wider text-sky-700">Global benchmarks</p>
         <h2>5 Global Examples</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {globalExamples.map((item) => (
             <article className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-5" key={item.name}>
               <h3 className="mt-1 text-lg font-bold text-emerald-900">{item.name}</h3>
               <p>{item.detail}</p>
-              <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
+              <a className="mt-3 inline-block text-xs font-semibold text-sky-700 underline decoration-1 underline-offset-4 hover:text-sky-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Mexico localization</p>
+        <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Mexico localization</p>
         <h2>Sustainable Investing in Mexico</h2>
         <p className="sectionText">
           Mexico introduced its Sustainable Taxonomy in 2023 to help identify economic activities that contribute to sustainability and environmental protection. GREENInvest uses this context to explore a simpler way to compare financial and environmental information for Mexican public companies.
         </p>
-        <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href="https://www.gob.mx/shcp/documentos/taxonomia-sostenible-de-mexico" target="_blank" rel="noreferrer">Source: Secretaría de Hacienda y Crédito Público</a>
+        <a className="mt-3 inline-block text-xs font-semibold text-sky-700 underline decoration-1 underline-offset-4 hover:text-sky-900" href="https://www.gob.mx/shcp/documentos/taxonomia-sostenible-de-mexico" target="_blank" rel="noreferrer">Source: Secretaría de Hacienda y Crédito Público</a>
       </section>
 
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Market research</p><h2>8 Competitors &amp; Substitutes</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-wider text-indigo-700">Market research</p><h2>8 Competitors &amp; Substitutes</h2></div>
           <span className="self-start rounded-full bg-emerald-100 px-3 py-2 text-xs font-bold text-emerald-800">8 researched platforms</span>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -122,14 +122,14 @@ export default function ResearchPage() {
               <h3 className="mt-1 text-lg font-bold text-emerald-900">{item.name}</h3>
               <p>{item.fact}</p>
               <p><strong>GREENInvest difference:</strong> {item.gap}</p>
-              <a className="mt-3 inline-block font-semibold text-teal-700 underline decoration-2 underline-offset-4 hover:text-teal-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
+              <a className="mt-3 inline-block text-xs font-semibold text-sky-700 underline decoration-1 underline-offset-4 hover:text-sky-900" href={item.source} target="_blank" rel="noreferrer">View Source</a>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Comparison</p>
+        <p className="text-xs font-bold uppercase tracking-wider text-violet-700">Comparison</p>
         <h2>Competitor Comparison Table</h2>
         <p className="mt-2 text-sm text-slate-600">Search by platform or keyword, or use the category filter. Clear the search box to see every platform in the selected category.</p>\n        <div className="my-4 grid gap-3 md:grid-cols-[1fr_240px]">
           <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search competitor or keyword" aria-label="Search competitors" className="rounded-xl border border-emerald-200 px-4 py-3" />
@@ -139,8 +139,8 @@ export default function ResearchPage() {
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[820px] border-collapse text-left">
-<thead className="bg-emerald-800 text-white"><tr><th className="border border-emerald-700 px-4 py-3">Platform</th><th className="border border-emerald-700 px-4 py-3">Type</th><th className="border border-emerald-700 px-4 py-3">Key feature</th><th className="border border-emerald-700 px-4 py-3">Overlap with GREENInvest</th></tr></thead>
-<tbody>{filteredCompetitors.map((item, index) => (<tr className={index % 2 === 0 ? "bg-white" : "bg-emerald-50/60"} key={item.name}><td className="border border-emerald-100 px-4 py-4 font-bold text-emerald-900">{item.name}</td><td className="border border-emerald-100 px-4 py-4"><span className="rounded-full bg-teal-100 px-2.5 py-1 text-xs font-bold text-teal-800">{item.type}</span></td><td className="border border-emerald-100 px-4 py-4 text-slate-700">{item.fact}</td><td className="border border-emerald-100 px-4 py-4"><span className={"inline-flex rounded-full px-3 py-1 text-xs font-bold " + (item.risk === "Low" ? "bg-emerald-100 text-emerald-800" : item.risk === "Medium" ? "bg-amber-100 text-amber-800" : "bg-rose-100 text-rose-800")}>{item.risk}</span></td></tr>))}</tbody>
+<thead className="bg-emerald-800 text-white"><tr><th className="border-2 border-white/60 px-4 py-3">Platform</th><th className="border-2 border-white/60 px-4 py-3">Type</th><th className="border-2 border-white/60 px-4 py-3">Key feature</th><th className="border-2 border-white/60 px-4 py-3">Overlap with GREENInvest</th></tr></thead>
+<tbody>{filteredCompetitors.map((item, index) => (<tr className={index % 2 === 0 ? "bg-white" : "bg-emerald-50/60"} key={item.name}><td className="border-2 border-slate-200 px-4 py-4 font-bold text-emerald-900">{item.name}</td><td className="border-2 border-slate-200 px-4 py-4"><span className="rounded-full bg-teal-100 px-2.5 py-1 text-xs font-bold text-teal-800">{item.type}</span></td><td className="border-2 border-slate-200 px-4 py-4 text-slate-700">{item.fact}</td><td className="border-2 border-slate-200 px-4 py-4"><span className={"inline-flex rounded-full px-3 py-1 text-xs font-bold " + (item.risk === "Low" ? "bg-emerald-100 text-emerald-800" : item.risk === "Medium" ? "bg-amber-100 text-amber-800" : "bg-rose-100 text-rose-800")}>{item.risk}</span></td></tr>))}</tbody>
 </table>
           {filteredCompetitors.length === 0 && <p className="emptyState">No competitors match this search and filter.</p>}
         </div>
@@ -169,7 +169,7 @@ export default function ResearchPage() {
 
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Saved research</p><h2>Saved Results</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-wider text-sky-700">Saved research</p><h2>Saved Results</h2></div>
           <button className="self-start rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={saveResearch}>Save Research</button>
         </div>
         <p className="sectionText">{saveStatus || "Save the current Week 2 research summary to Supabase."}</p>
