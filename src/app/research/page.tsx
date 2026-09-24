@@ -181,6 +181,7 @@ export default function ResearchPage() {
           {savedResearch.length === 0 && <p className="sectionText">No saved research yet.</p>}
         </div>
       </section>
+      </div>
     </main>
   );
 }
