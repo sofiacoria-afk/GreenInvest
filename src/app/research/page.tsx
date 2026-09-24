@@ -83,7 +83,7 @@ export default function ResearchPage() {
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Research intake</p>
         <div className="mt-4 grid gap-3 md:grid-cols-[1fr_auto]">
           <input aria-label="Research topic" value={researchQuery} onChange={(event) => setResearchQuery(event.target.value)} placeholder="Example: Sustainable investment platforms" className="rounded-xl border border-emerald-200 px-4 py-3" />
-          <button className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={() => setSearch(researchQuery)}>Search</button>
+          <button className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={() => { setSearch(""); setTypeFilter("All"); }}>Search</button>
         </div>
       </section>
 
@@ -131,21 +131,17 @@ export default function ResearchPage() {
       <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Comparison</p>
         <h2>Competitor Comparison Table</h2>
-        <div className="my-4 grid gap-3 md:grid-cols-[1fr_240px]">
+        <p className="mt-2 text-sm text-slate-600">Search by platform or keyword, or use the category filter. Clear the search box to see every platform in the selected category.</p>\n        <div className="my-4 grid gap-3 md:grid-cols-[1fr_240px]">
           <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search competitor or keyword" aria-label="Search competitors" className="rounded-xl border border-emerald-200 px-4 py-3" />
           <select value={typeFilter} onChange={(event) => setTypeFilter(event.target.value)} aria-label="Filter by type" className="rounded-xl border border-emerald-200 bg-white px-4 py-3">
             {types.map((type) => <option key={type} value={type}>{type}</option>)}
           </select>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[680px] border-collapse text-left">
-            <thead><tr><th>Platform</th><th>Type</th><th>Key feature</th><th>Risk</th></tr></thead>
-            <tbody>
-              {filteredCompetitors.map((item) => (
-                <tr key={item.name}><td>{item.name}</td><td>{item.type}</td><td>{item.fact}</td><td><span className={"riskBadge " + item.risk.toLowerCase()}>{item.risk}</span></td></tr>
-              ))}
-            </tbody>
-          </table>
+          <table className="w-full min-w-[820px] border-collapse text-left">
+<thead className="bg-emerald-800 text-white"><tr><th className="border border-emerald-700 px-4 py-3">Platform</th><th className="border border-emerald-700 px-4 py-3">Type</th><th className="border border-emerald-700 px-4 py-3">Key feature</th><th className="border border-emerald-700 px-4 py-3">Overlap with GREENInvest</th></tr></thead>
+<tbody>{filteredCompetitors.map((item, index) => (<tr className={index % 2 === 0 ? "bg-white" : "bg-emerald-50/60"} key={item.name}><td className="border border-emerald-100 px-4 py-4 font-bold text-emerald-900">{item.name}</td><td className="border border-emerald-100 px-4 py-4"><span className="rounded-full bg-teal-100 px-2.5 py-1 text-xs font-bold text-teal-800">{item.type}</span></td><td className="border border-emerald-100 px-4 py-4 text-slate-700">{item.fact}</td><td className="border border-emerald-100 px-4 py-4"><span className={"inline-flex rounded-full px-3 py-1 text-xs font-bold " + (item.risk === "Low" ? "bg-emerald-100 text-emerald-800" : item.risk === "Medium" ? "bg-amber-100 text-amber-800" : "bg-rose-100 text-rose-800")}>{item.risk}</span></td></tr>))}</tbody>
+</table>
           {filteredCompetitors.length === 0 && <p className="emptyState">No competitors match this search and filter.</p>}
         </div>
       </section>
@@ -162,9 +158,9 @@ export default function ResearchPage() {
               <div className={"rounded-2xl border-2 p-6 " + tone} key={level}>
                 <div className="mb-4 flex items-center gap-3">
                   <span className={"h-3 w-3 rounded-full " + dot}></span>
-                  <strong className="text-xl">{level} Risk</strong>
+                  <strong className="text-xl">{level} Overlap</strong>
                 </div>
-                <p className="text-sm font-medium leading-6">{competitors.filter((item) => item.risk === level).map((item) => item.name).join(" · ")}</p>
+                <p className="mb-3 text-sm font-bold">{level === "Low" ? "Mostly different from GREENInvest" : level === "Medium" ? "Some similar features to GREENInvest" : "Several features similar to GREENInvest"}</p>\n                <p className="text-sm font-medium leading-6">{competitors.filter((item) => item.risk === level).map((item) => item.name).join(" · ")}</p>
               </div>
             );
           })}
