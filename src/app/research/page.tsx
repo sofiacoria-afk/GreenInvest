@@ -69,7 +69,7 @@ export default function ResearchPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">\n      <div className="mx-auto max-w-6xl">
+    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-sky-50 via-emerald-50 to-white px-5 py-12 text-emerald-950"><div className="pointer-events-none fixed inset-0 opacity-50" aria-hidden="true" style={{ backgroundImage: "radial-gradient(circle at 8% 12%, rgba(16,185,129,.18), transparent 24%), radial-gradient(circle at 92% 18%, rgba(14,165,233,.15), transparent 25%), linear-gradient(135deg, transparent 68%, rgba(16,185,129,.10) 68%, rgba(16,185,129,.10) 72%, transparent 72%)" }}></div>\n      <div className="relative z-10 mx-auto max-w-6xl">
       <header className="mb-10 flex flex-col justify-between gap-5 md:flex-row">
         <div>
           <p className="font-semibold uppercase tracking-[0.25em] text-emerald-600">GREENInvest · Week 2</p>
@@ -79,16 +79,16 @@ export default function ResearchPage() {
         <a className="font-semibold text-emerald-700 underline" href="/">Back to GREENInvest</a>
       </header>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Research intake</p>
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
+        <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-xl">⌕</span><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Research intake</p></div>
         <div className="mt-4 grid gap-3 md:grid-cols-[1fr_auto]">
           <input aria-label="Research topic" value={researchQuery} onChange={(event) => setResearchQuery(event.target.value)} placeholder="Example: Sustainable investment platforms" className="rounded-xl border border-emerald-200 px-4 py-3" />
           <button className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={() => { setSearch(""); setTypeFilter("All"); }}>Search</button>
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-sky-700">Global benchmarks</p>
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
+        <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-xl">◎</span><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Global benchmarks</p></div>
         <h2>5 Global Examples</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {globalExamples.map((item) => (
@@ -101,8 +101,8 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-amber-700">Mexico localization</p>
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
+        <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-xl">🇲🇽</span><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Mexico localization</p></div>
         <h2>Sustainable Investing in Mexico</h2>
         <p className="sectionText">
           Mexico introduced its Sustainable Taxonomy in 2023 to help identify economic activities that contribute to sustainability and environmental protection. GREENInvest uses this context to explore a simpler way to compare financial and environmental information for Mexican public companies.
@@ -110,9 +110,9 @@ export default function ResearchPage() {
         <a className="mt-3 inline-block text-xs font-semibold text-sky-700 underline decoration-1 underline-offset-4 hover:text-sky-900" href="https://www.gob.mx/shcp/documentos/taxonomia-sostenible-de-mexico" target="_blank" rel="noreferrer">Source: Secretaría de Hacienda y Crédito Público</a>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-indigo-700">Market research</p><h2>8 Competitors &amp; Substitutes</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Market research</p><h2>8 Competitors &amp; Substitutes</h2></div>
           <span className="self-start rounded-full bg-emerald-100 px-3 py-2 text-xs font-bold text-emerald-800">8 researched platforms</span>
         </div>
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -128,8 +128,8 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
-        <p className="text-xs font-bold uppercase tracking-wider text-violet-700">Comparison</p>
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
+        <div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-xl">▦</span><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Comparison</p></div>
         <h2>Competitor Comparison Table</h2>
         <p className="mt-2 text-sm text-slate-600">Search by platform or keyword, or use the category filter. Clear the search box to see every platform in the selected category.</p>\n        <div className="my-4 grid gap-3 md:grid-cols-[1fr_240px]">
           <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search competitor or keyword" aria-label="Search competitors" className="rounded-xl border border-emerald-200 px-4 py-3" />
@@ -146,7 +146,7 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
         <p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Risk map</p>
         <h2>Competitive Risk Map</h2>
         <p className="sectionText">A simple project-level view of how directly each researched platform overlaps with GREENInvest's planned research experience.</p>
@@ -167,9 +167,9 @@ export default function ResearchPage() {
         </div>
       </section>
 
-      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white p-7 shadow-sm md:p-8">
+      <section className="mt-10 rounded-3xl border border-emerald-100 bg-white/90 p-7 shadow-sm backdrop-blur-[2px] md:p-8">
         <div className="flex flex-col justify-between gap-3 md:flex-row">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-sky-700">Saved research</p><h2>Saved Results</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-wider text-emerald-700">Saved research</p><h2>Saved Results</h2></div>
           <button className="self-start rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-emerald-800 active:bg-emerald-950" type="button" onClick={saveResearch}>Save Research</button>
         </div>
         <p className="sectionText">{saveStatus || "Save the current Week 2 research summary to Supabase."}</p>
