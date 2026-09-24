@@ -60,7 +60,14 @@ export default function ResearchPage() {
   async function saveResearch() {
     if (!supabase) { setSaveStatus("Supabase environment variables are not configured."); return; }
     const query = researchQuery.trim() || "Sustainable investment platforms";
-    const summary = "Research includes 5 global examples, Mexico sustainable-finance context, 8 competitors/substitutes, comparison filters, and a competitive risk map.";
+    const normalizedQuery = query.toLowerCase();
+    const summary = normalizedQuery.includes("mexico") || normalizedQuery.includes("mexican")
+      ? "Focuses on sustainable investing in Mexico and how GREENInvest can compare financial performance with environmental information for Mexican listed companies."
+      : normalizedQuery.includes("financial") || normalizedQuery.includes("environmental")
+        ? "Focuses on combining financial performance and environmental indicators in one simple comparison for Mexican public companies."
+        : normalizedQuery.includes("esg")
+          ? "Focuses on ESG investment platforms and compares how sustainability research, ESG data, and investment tools differ from GREENInvest's simpler Mexico-focused experience."
+          : "Explores sustainable investment platforms using 5 global examples, 8 competitors and substitutes, comparison filters, and the GREENInvest competitor overlap map.";
     setSaveStatus("Saving...");
     const { data, error } = await supabase.from("research_outputs").insert({ research_query: query, research_summary: summary }).select().single();
     if (error) { setSaveStatus("Could not save research."); return; }
