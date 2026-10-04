@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
 
 type SavedScenario = { id: string; scenario_name: string; scenario_type: string; investor_customers: number; education_customers: number; investor_price: number; education_price: number; monthly_revenue: number; annual_revenue: number; created_at: string; };
@@ -42,6 +42,10 @@ export default function PricingPage() {
     if (error) { setSaveMessage("Could not load saved scenarios."); return; }
     setSavedScenarios((data ?? []) as SavedScenario[]);
   }
+
+  useEffect(() => {
+    loadSavedScenarios();
+  }, []);
 
   async function saveScenario() {
     const supabase = getSupabase();
