@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 const segments = [
@@ -23,6 +25,16 @@ const features = [
   ["Download educational PDF", false, false, true],
   ["Classroom learning support", false, false, true],
 ] as const;
+
+function downloadEducationPdf() {
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>GREENInvest Education Guide</title><style>body{font-family:Arial,sans-serif;max-width:760px;margin:40px auto;color:#173d2b;line-height:1.6}h1,h2{color:#047857}.note{background:#ecfdf5;padding:16px;border-radius:12px}</style></head><body><h1>GREENInvest Education Guide</h1><p class="note">Simple concepts for educational use. GREENInvest is not financial advice.</p><h2>Stock Return</h2><p>Stock return shows how much the value of a stock increased or decreased during a selected period.</p><h2>Carbon Emissions</h2><p>Carbon emissions help users understand greenhouse gas emissions reported by a company. GREENInvest uses environmental information as one part of a broader sustainability analysis.</p><h2>Financial + Environmental Analysis</h2><p>Looking at financial performance and environmental information together can help students compare companies from more than one perspective.</p><h2>Remember</h2><p>One indicator does not explain the complete performance or impact of a company. Use the information as a starting point for research and learning.</p></body></html>`;
+  const win = window.open("", "_blank");
+  if (!win) return;
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(() => win.print(), 250);
+}
 
 export default function ProductPage() {
   return (
@@ -85,7 +97,7 @@ export default function ProductPage() {
             <div className="rounded-2xl bg-white/10 p-5"><h3 className="font-bold">Carbon Emissions</h3><p className="mt-2 text-sm text-emerald-100">Helps users understand greenhouse gas emissions reported by a company.</p></div>
             <div className="rounded-2xl bg-white/10 p-5"><h3 className="font-bold">Combined Analysis</h3><p className="mt-2 text-sm text-emerald-100">Connects financial performance with environmental information for learning.</p></div>
           </div>
-          <p className="mt-5 text-sm text-emerald-200">Education also includes an educational PDF option so users can save the main concepts and review them later.</p>
+          <p className="mt-5 text-sm text-emerald-200">Education also includes an educational PDF option so users can save the main concepts and review them later.</p>\n          <button onClick={downloadEducationPdf} className="mt-5 rounded-xl bg-white px-5 py-3 font-semibold text-emerald-900 hover:bg-emerald-50">Generate Educational PDF</button>\n          <p className="mt-2 text-xs text-emerald-200">The print window lets users save the education guide as a PDF.</p>
         </section>
 
         <div className="mt-10 text-center">
