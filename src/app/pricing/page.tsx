@@ -1,0 +1,88 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+
+type ScenarioType = "Conservative" | "Growth";
+
+const defaults = {
+  Conservative: { investorCustomers: 100, educationCustomers: 5 },
+  Growth: { investorCustomers: 300, educationCustomers: 15 },
+};
+
+export default function PricingPage() {
+  const [scenario, setScenario] = useState<ScenarioType>("Conservative");
+  const [investorCustomers, setInvestorCustomers] = useState(100);
+  const [educationCustomers, setEducationCustomers] = useState(5);
+  const [investorPrice, setInvestorPrice] = useState(149);
+  const [educationPrice, setEducationPrice] = useState(1499);
+
+  function selectScenario(next: ScenarioType) {
+    setScenario(next);
+    setInvestorCustomers(defaults[next].investorCustomers);
+    setEducationCustomers(defaults[next].educationCustomers);
+  }
+
+  const monthlyRevenue = useMemo(
+    () => investorCustomers * investorPrice + educationCustomers * educationPrice,
+    [investorCustomers, investorPrice, educationCustomers, educationPrice]
+  );
+  const annualRevenue = monthlyRevenue * 12;
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
+      <section className="mx-auto max-w-6xl">
+        <header>
+          <p className="font-semibold uppercase tracking-[0.25em] text-emerald-600">Week 3 · Pricing Simulator</p>
+          <h1 className="mt-3 text-5xl font-bold tracking-tight">Pricing & Revenue Simulator</h1>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">Test simple pricing assumptions and see how customer numbers can change GREENInvest monthly and annual revenue.</p>
+        </header>
+
+        <div className="mt-8 inline-flex rounded-2xl border border-emerald-200 bg-white p-1">
+          {(["Conservative", "Growth"] as ScenarioType[]).map((option) => (
+            <button key={option} onClick={() => selectScenario(option)} className={`rounded-xl px-5 py-3 font-semibold transition ${scenario === option ? "bg-emerald-700 text-white" : "text-emerald-800 hover:bg-emerald-50"}`}>{option}</button>
+          ))}
+        </div>
+
+        <div className="mt-7 grid gap-6 md:grid-cols-2">
+          <section className="rounded-3xl border border-emerald-100 bg-white p-7 shadow-xl shadow-emerald-100/50">
+            <h2 className="text-2xl font-bold">Simulator Inputs</h2>
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              <NumberInput label="Investor customers" value={investorCustomers} onChange={setInvestorCustomers} />
+              <NumberInput label="Investor price (MXN/month)" value={investorPrice} onChange={setInvestorPrice} />
+              <NumberInput label="Education customers" value={educationCustomers} onChange={setEducationCustomers} />
+              <NumberInput label="Education price (MXN/month)" value={educationPrice} onChange={setEducationPrice} />
+            </div>
+            <p className="mt-5 text-sm text-slate-500">Prices and customer numbers are academic assumptions and do not represent validated market demand.</p>
+          </section>
+
+          <section className="rounded-3xl bg-emerald-900 p-7 text-white shadow-xl">
+            <h2 className="text-2xl font-bold">Revenue Result</h2>
+            <div className="mt-6 rounded-2xl bg-white/10 p-5"><p className="text-sm text-emerald-200">Monthly Revenue</p><p className="mt-2 text-4xl font-bold">{monthlyRevenue.toLocaleString("en-US")} MXN</p></div>
+            <div className="mt-4 rounded-2xl bg-white/10 p-5"><p className="text-sm text-emerald-200">Annual Revenue</p><p className="mt-2 text-4xl font-bold">{annualRevenue.toLocaleString("en-US")} MXN</p></div>
+          </section>
+        </div>
+
+        <section className="mt-8 rounded-3xl border border-emerald-100 bg-white p-7">
+          <h2 className="text-2xl font-bold">Assumptions</h2>
+          <div className="mt-5 overflow-x-auto"><table className="w-full text-left"><tbody>
+            <Row label="Investor price" value={`${investorPrice.toLocaleString("en-US")} MXN/month`} />
+            <Row label="Education price" value={`${educationPrice.toLocaleString("en-US")} MXN/month`} />
+            <Row label="Selected scenario" value={scenario} />
+            <Row label="Revenue period" value="Monthly / Annual" />
+          </tbody></table></div>
+        </section>
+
+        <div className="mt-8"><Link href="/product" className="font-semibold text-emerald-700 underline">Back to Product Architecture</Link></div>
+      </section>
+    </main>
+  );
+}
+
+function NumberInput({ label, value, onChange }: { label: string; value: number; onChange: (value: number) => void }) {
+  return <label className="text-sm font-semibold">{label}<input type="number" min="0" value={value} onChange={(event) => onChange(Math.max(0, Number(event.target.value) || 0))} className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 text-base font-normal outline-none focus:border-emerald-500" /></label>;
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return <tr className="border-t border-emerald-100"><td className="p-4 font-semibold">{label}</td><td className="p-4 text-slate-600">{value}</td></tr>;
+}
