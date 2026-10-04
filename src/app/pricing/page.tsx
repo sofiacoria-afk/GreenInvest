@@ -109,7 +109,7 @@ export default function PricingPage() {
           </div>
           {saveMessage && <p className="mt-3 text-sm text-slate-600">{saveMessage}</p>}
         </section>
-        <section className="mt-8"><h2 className="text-2xl font-bold">Saved Pricing Scenarios</h2>{savedScenarios.length === 0 ? <p className="mt-3 text-slate-500">Save a scenario or select View Saved to display saved results.</p> : <div className="mt-5 grid gap-4 md:grid-cols-2">{savedScenarios.map((item) => <article key={item.id} className="rounded-2xl border border-emerald-100 bg-white p-5"><div className="flex items-start justify-between gap-4"><div><h3 className="font-bold">{item.scenario_name}</h3><p className="mt-1 text-sm text-emerald-700">{item.scenario_type}</p></div><p className="text-sm text-slate-500">{new Date(item.created_at).toLocaleDateString()}</p></div><p className="mt-4 text-sm text-slate-600">{item.investor_customers} Investor · {item.education_customers} Education</p><p className="mt-2 font-semibold">{Number(item.monthly_revenue).toLocaleString("en-US")} MXN/month</p><p className="text-sm text-slate-600">{Number(item.annual_revenue).toLocaleString("en-US")} MXN/year</p></article>)}</div>}</section>
+        <section className="mt-8"><h2 className="text-2xl font-bold">Saved Pricing Scenarios</h2>{savedScenarios.length === 0 ? <p className="mt-3 text-slate-500">Saved scenarios will appear here automatically.</p> : <div className="mt-5 grid gap-4 md:grid-cols-2">{savedScenarios.map((item) => <article key={item.id} className="rounded-2xl border border-emerald-100 bg-white p-5"><div className="flex items-start justify-between gap-4"><div><h3 className="font-bold">{item.scenario_name}</h3><p className="mt-1 text-sm text-emerald-700">{item.scenario_type}</p></div><p className="text-sm text-slate-500">{new Date(item.created_at).toLocaleDateString()}</p></div><p className="mt-4 text-sm text-slate-600">{item.investor_customers} Investor · {item.education_customers} Education</p><p className="mt-2 font-semibold">{Number(item.monthly_revenue).toLocaleString("en-US")} MXN/month</p><p className="text-sm text-slate-600">{Number(item.annual_revenue).toLocaleString("en-US")} MXN/year</p></article>)}</div>}</section>
         <div className="mt-8"><Link href="/product" className="font-semibold text-emerald-700 underline">Back to Product Architecture</Link></div>
       </section>
     </main>
@@ -117,7 +117,7 @@ export default function PricingPage() {
 }
 
 function NumberInput({ label, value, onChange }: { label: string; value: number; onChange: (value: number) => void }) {
-  return <label className="text-sm font-semibold">{label}<input type="number" min="0" value={value} onChange={(event) => onChange(Math.max(0, Number(event.target.value) || 0))} className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 text-base font-normal outline-none focus:border-emerald-500" /></label>;
+  return <label className="text-sm font-semibold">{label}<input type="number" min="0" value={value === 0 ? "" : value} onChange={(event) => { const next = event.target.value; onChange(next === "" ? 0 : Math.max(0, Number(next))); }} className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 text-base font-normal outline-none focus:border-emerald-500" /></label>;
 }
 
 function Row({ label, value }: { label: string; value: string }) {
