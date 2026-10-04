@@ -28,54 +28,37 @@ const features = [
 
 function downloadEducationPdf() {
   const html = `<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>GREENInvest Education Guide</title>
+<html><head><meta charset="utf-8"><title>GREENInvest Learning Guide</title>
 <style>
-@page{margin:16mm}
-*{box-sizing:border-box}
-body{font-family:Arial,sans-serif;max-width:820px;margin:0 auto;color:#163c2b;line-height:1.55;background:#fff}
-.hero{background:#065f46;color:white;padding:34px;border-radius:18px;margin-bottom:24px}
-.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#a7f3d0;font-weight:bold}
-h1{font-size:34px;margin:8px 0 6px}h2{color:#047857;margin:0 0 10px;font-size:22px}
-.subtitle{color:#d1fae5;margin:0}
-.learn{background:#ecfdf5;border:1px solid #a7f3d0;padding:18px 20px;border-radius:14px;margin-bottom:20px}
-.cards{display:grid;gap:14px}
-.card{border:1px solid #d1fae5;border-radius:14px;padding:20px;break-inside:avoid}
-.label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#059669;font-weight:bold;margin:12px 0 4px}
-.example{background:#f0fdf4;padding:10px 12px;border-radius:9px;margin-top:10px}
-.takeaways{background:#064e3b;color:white;padding:22px;border-radius:14px;margin-top:20px}
-.takeaways h2{color:#a7f3d0}.takeaways ul{margin-bottom:0}
-.footer{font-size:11px;color:#64748b;margin-top:20px;text-align:center}
-@media print{.hero,.learn,.card,.takeaways{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style>
-</head>
-<body>
-<section class="hero">
-<div class="eyebrow">GREENInvest · Education Plan</div>
-<h1>Education Guide</h1>
-<p class="subtitle">Financial & Environmental Basics</p>
-</section>
-<section class="learn">
-<h2>What you will learn</h2>
-<p>Understand three basic ideas used in GREENInvest and why looking at financial and environmental information together can support better research and learning.</p>
-</section>
-<div class="cards">
-<section class="card"><h2>1. Stock Return</h2><div class="label">What is it?</div><p>Stock return shows how much the value of a stock increased or decreased during a selected period.</p><div class="label">Why does it matter?</div><p>It helps users understand how a company's stock performed over time.</p><div class="example"><strong>Simple example:</strong> If a stock moves from MXN $100 to MXN $110, its price increased by 10%.</div></section>
-<section class="card"><h2>2. Carbon Emissions</h2><div class="label">What is it?</div><p>Carbon emissions are greenhouse gas emissions reported by a company as part of its environmental information.</p><div class="label">Why does it matter?</div><p>They help students consider part of a company's environmental impact and sustainability performance.</p><div class="example"><strong>Simple example:</strong> Two companies can have similar financial results but report different levels of carbon emissions.</div></section>
-<section class="card"><h2>3. Financial + Environmental Analysis</h2><div class="label">What is it?</div><p>This approach looks at financial performance and environmental information together instead of analyzing only one type of data.</p><div class="label">Why does it matter?</div><p>It gives students more than one perspective when comparing companies.</p><div class="example"><strong>Simple example:</strong> A company can show a positive stock return while still having environmental challenges that are useful to consider.</div></section>
-</div>
-<section class="takeaways"><h2>Key Takeaways</h2><ul><li>Financial performance is only one part of company analysis.</li><li>Environmental indicators add another perspective.</li><li>One indicator does not explain the complete performance or impact of a company.</li><li>Use GREENInvest as a starting point for research and learning.</li></ul></section>
-<p class="footer">For educational purposes only. GREENInvest does not provide financial advice.</p>
-</body>
-</html>`;
+@page{size:A4;margin:12mm}
+*{box-sizing:border-box} body{font-family:Arial,sans-serif;margin:0;color:#123b2b;background:#fff;line-height:1.45}
+.page{max-width:800px;margin:auto}.cover{background:linear-gradient(135deg,#064e3b,#059669);color:#fff;padding:38px 36px;border-radius:22px;position:relative;overflow:hidden}
+.cover:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08);right:-40px;top:-50px}
+.brand{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#a7f3d0}.cover h1{font-size:38px;margin:12px 0 6px}.cover p{margin:0;color:#d1fae5;font-size:17px}
+.intro{margin:20px 0;padding:18px 20px;border-radius:16px;background:#ecfdf5;border-left:5px solid #10b981}.intro h2{margin:0 0 6px;color:#065f46;font-size:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}.mini{border:1px solid #d1fae5;border-radius:14px;padding:15px;background:#f8fffb}.mini strong{color:#047857}
+.card{border:1px solid #a7f3d0;border-radius:18px;padding:20px;margin:14px 0;break-inside:avoid;box-shadow:0 3px 10px rgba(6,78,59,.06)}
+.number{display:inline-flex;width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;background:#047857;color:white;font-weight:bold;margin-right:8px}
+.card h2{display:inline;color:#065f46;font-size:21px}.label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#059669;font-weight:bold;margin:13px 0 4px}
+.example{background:#f0fdf4;border-radius:11px;padding:11px 13px;margin-top:10px}.takeaways{background:#064e3b;color:white;border-radius:18px;padding:20px 24px;margin-top:18px}.takeaways h2{color:#a7f3d0;margin-top:0}.takeaways li{margin:6px 0}
+.footer{text-align:center;color:#64748b;font-size:10px;margin-top:16px}
+@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.cover,.intro,.mini,.card,.example,.takeaways{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body><main class="page">
+<section class="cover"><div class="brand">GREENInvest · Education Plan</div><h1>Learning Guide</h1><p>Understand the numbers, not just see them.</p></section>
+<section class="intro"><h2>What does this guide give you?</h2><p>GREENInvest gives students simple explanations of the financial and environmental information shown on the platform. This guide explains what each concept means, why it matters, and how to interpret it with an easy example.</p></section>
+<div class="grid"><div class="mini"><strong>Simple explanations</strong><br>Learn concepts without complicated financial language.</div><div class="mini"><strong>Practical examples</strong><br>See how each concept can be interpreted in a company analysis.</div></div>
+<section class="card"><span class="number">1</span><h2>Stock Return</h2><div class="label">What does it mean?</div><p>Stock return shows how much the value of a company's stock increased or decreased during a selected period.</p><div class="label">Why is it useful?</div><p>It helps you understand how the stock performed and compare its change with other companies or periods.</p><div class="example"><strong>Example:</strong> If a stock goes from MXN $100 to MXN $110, its price increased by 10%.</div></section>
+<section class="card"><span class="number">2</span><h2>Carbon Emissions</h2><div class="label">What does it mean?</div><p>Carbon emissions represent greenhouse gases reported by a company and are one indicator of environmental impact.</p><div class="label">Why is it useful?</div><p>They add an environmental perspective when studying a company instead of looking only at financial results.</p><div class="example"><strong>Example:</strong> Two companies may have similar financial performance but very different reported emissions.</div></section>
+<section class="card"><span class="number">3</span><h2>Financial + Environmental Analysis</h2><div class="label">What does it mean?</div><p>GREENInvest combines financial performance with environmental information so users can study a company from more than one perspective.</p><div class="label">Why is it useful?</div><p>A strong financial result does not automatically mean strong environmental performance. Seeing both helps students ask better questions.</p><div class="example"><strong>Example:</strong> A company may show a positive stock return while also reporting environmental challenges worth researching.</div></section>
+<section class="takeaways"><h2>Key Takeaways</h2><ul><li>GREENInvest helps explain the information shown on the platform.</li><li>Financial and environmental indicators answer different questions.</li><li>No single indicator explains the complete performance or impact of a company.</li><li>Use the guide as a starting point for comparison, research, and learning.</li></ul></section>
+<p class="footer">GREENInvest Education Guide · For educational purposes only · This is not financial advice.</p>
+</main></body></html>`;
   const win = window.open("", "_blank");
   if (!win) return;
   win.document.write(html);
   win.document.close();
   win.focus();
-  setTimeout(() => win.print(), 250);
+  setTimeout(() => win.print(), 300);
 }
 
 export default function ProductPage() {
@@ -133,13 +116,13 @@ export default function ProductPage() {
         <section className="mt-12 rounded-3xl bg-emerald-900 p-8 text-white">
           <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300">Education Plan</p>
           <h2 className="mt-2 text-3xl font-bold">Learn with GREENInvest</h2>
-          <p className="mt-4 max-w-3xl leading-7 text-emerald-100">Understand financial and environmental concepts with simple explanations and examples. Generate an education guide to review the main concepts later.</p>
+          <p className="mt-4 max-w-3xl leading-7 text-emerald-100">The Education plan does more than show data. It gives students simple explanations of what financial and environmental indicators mean, why they matter, and how to interpret them with practical examples. Users can also generate a learning guide to review the concepts later.</p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-white/10 p-5"><h3 className="font-bold">Stock Return</h3><p className="mt-2 text-sm text-emerald-100">Shows how much a stock increased or decreased during a selected period.</p></div>
             <div className="rounded-2xl bg-white/10 p-5"><h3 className="font-bold">Carbon Emissions</h3><p className="mt-2 text-sm text-emerald-100">Helps users understand greenhouse gas emissions reported by a company.</p></div>
             <div className="rounded-2xl bg-white/10 p-5"><h3 className="font-bold">Combined Analysis</h3><p className="mt-2 text-sm text-emerald-100">Connects financial performance with environmental information for learning.</p></div>
           </div>
-          <p className="mt-5 text-sm text-emerald-200">Generate a simple educational guide with the main financial and environmental concepts to review later.</p>\n          <button onClick={downloadEducationPdf} className="mt-5 rounded-xl bg-white px-5 py-3 font-semibold text-emerald-900 hover:bg-emerald-50">Generate Education Guide</button>\n
+          <p className="mt-5 text-sm text-emerald-200">The guide includes simple explanations, why each concept matters, practical examples, and key takeaways for studying or classroom use.</p>\n          <button onClick={downloadEducationPdf} className="mt-5 rounded-xl bg-white px-5 py-3 font-semibold text-emerald-900 hover:bg-emerald-50">Generate Education Guide</button>\n
         </section>
 
         <div className="mt-10 text-center">
