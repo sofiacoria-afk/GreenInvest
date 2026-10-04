@@ -106,7 +106,6 @@ export default function PricingPage() {
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <input value={scenarioName} onChange={(event) => setScenarioName(event.target.value)} placeholder="Scenario name" className="flex-1 rounded-xl border border-emerald-200 px-4 py-3 outline-none focus:border-emerald-500" />
             <button onClick={saveScenario} className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">Save Scenario</button>
-            <button onClick={loadSavedScenarios} className="rounded-xl border border-emerald-300 px-5 py-3 font-semibold text-emerald-800 hover:bg-emerald-50">View Saved</button>
           </div>
           {saveMessage && <p className="mt-3 text-sm text-slate-600">{saveMessage}</p>}
         </section>
