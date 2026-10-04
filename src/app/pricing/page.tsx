@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { getSupabase } from "@/lib/supabase";
+
+type SavedScenario = { id: string; scenario_name: string; scenario_type: string; investor_customers: number; education_customers: number; investor_price: number; education_price: number; monthly_revenue: number; annual_revenue: number; created_at: string; };
 
 type ScenarioType = "Conservative" | "Growth";
 
@@ -16,6 +19,9 @@ export default function PricingPage() {
   const [educationCustomers, setEducationCustomers] = useState(5);
   const [investorPrice, setInvestorPrice] = useState(149);
   const [educationPrice, setEducationPrice] = useState(1499);
+  const [scenarioName, setScenarioName] = useState("My Conservative Scenario");
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>([]);
+  const [saveMessage, setSaveMessage] = useState("");
 
   function selectScenario(next: ScenarioType) {
     setScenario(next);
@@ -28,6 +34,24 @@ export default function PricingPage() {
     [investorCustomers, investorPrice, educationCustomers, educationPrice]
   );
   const annualRevenue = monthlyRevenue * 12;
+
+  async function loadSavedScenarios() {
+    const supabase = getSupabase();
+    if (!supabase) { setSaveMessage("Supabase is not configured."); return; }
+    const { data, error } = await supabase.from("pricing_scenarios").select("*").order("created_at", { ascending: false }).limit(10);
+    if (error) { setSaveMessage("Could not load saved scenarios."); return; }
+    setSavedScenarios((data ?? []) as SavedScenario[]);
+  }
+
+  async function saveScenario() {
+    const supabase = getSupabase();
+    if (!supabase) { setSaveMessage("Supabase is not configured."); return; }
+    setSaveMessage("Saving...");
+    const { error } = await supabase.from("pricing_scenarios").insert({ scenario_name: scenarioName.trim() || `${scenario} Scenario`, scenario_type: scenario, free_customers: 0, investor_customers: investorCustomers, education_customers: educationCustomers, free_price: 0, investor_price: investorPrice, education_price: educationPrice, monthly_revenue: monthlyRevenue, annual_revenue: annualRevenue });
+    if (error) { setSaveMessage("Could not save the scenario."); return; }
+    setSaveMessage("Scenario saved successfully.");
+    await loadSavedScenarios();
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
@@ -73,6 +97,16 @@ export default function PricingPage() {
           </tbody></table></div>
         </section>
 
+        <section className="mt-8 rounded-3xl border border-emerald-100 bg-white p-7 shadow-lg shadow-emerald-100/40">
+          <h2 className="text-2xl font-bold">Save Pricing Scenario</h2>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <input value={scenarioName} onChange={(event) => setScenarioName(event.target.value)} placeholder="Scenario name" className="flex-1 rounded-xl border border-emerald-200 px-4 py-3 outline-none focus:border-emerald-500" />
+            <button onClick={saveScenario} className="rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">Save Scenario</button>
+            <button onClick={loadSavedScenarios} className="rounded-xl border border-emerald-300 px-5 py-3 font-semibold text-emerald-800 hover:bg-emerald-50">View Saved</button>
+          </div>
+          {saveMessage && <p className="mt-3 text-sm text-slate-600">{saveMessage}</p>}
+        </section>
+        <section className="mt-8"><h2 className="text-2xl font-bold">Saved Pricing Scenarios</h2>{savedScenarios.length === 0 ? <p className="mt-3 text-slate-500">Save a scenario or select View Saved to display saved results.</p> : <div className="mt-5 grid gap-4 md:grid-cols-2">{savedScenarios.map((item) => <article key={item.id} className="rounded-2xl border border-emerald-100 bg-white p-5"><div className="flex items-start justify-between gap-4"><div><h3 className="font-bold">{item.scenario_name}</h3><p className="mt-1 text-sm text-emerald-700">{item.scenario_type}</p></div><p className="text-sm text-slate-500">{new Date(item.created_at).toLocaleDateString()}</p></div><p className="mt-4 text-sm text-slate-600">{item.investor_customers} Investor · {item.education_customers} Education</p><p className="mt-2 font-semibold">{Number(item.monthly_revenue).toLocaleString("en-US")} MXN/month</p><p className="text-sm text-slate-600">{Number(item.annual_revenue).toLocaleString("en-US")} MXN/year</p></article>)}</div>}</section>
         <div className="mt-8"><Link href="/product" className="font-semibold text-emerald-700 underline">Back to Product Architecture</Link></div>
       </section>
     </main>
