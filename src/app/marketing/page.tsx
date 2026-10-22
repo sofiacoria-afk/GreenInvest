@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MarketingWorkspace from "./MarketingWorkspace";
 
 const values = [
   { title: "Clear financial information", detail: "Explore stock performance with simple explanations." },
@@ -47,6 +48,8 @@ export default function MarketingPage() {
             <p className="mt-3 text-slate-600">Beginner investors and students interested in understanding Mexican public companies and sustainability data without complicated financial language.</p>
           </article>
         </section>
+
+        <MarketingWorkspace />
 
         <p className="mt-12 text-sm text-slate-500">Educational information only. GREENInvest does not provide investment advice.</p>
       </div>
