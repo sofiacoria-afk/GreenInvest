@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 type StockResult = {
   ticker: string;
@@ -105,6 +106,8 @@ export default function Home() {
             Consulta el rendimiento financiero y la evolución de emisiones de
             empresas públicas de México y Estados Unidos.
           </p>
+          <Link href="/marketing" className="mt-5 inline-flex rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">Explore our marketing campaign →</Link>
+          <nav aria-label="More GREENInvest pages" className="mt-5 flex flex-wrap gap-4 text-sm font-semibold text-emerald-800"><Link href="/core">Core</Link><Link href="/research">Research</Link><Link href="/product">Product</Link><Link href="/pricing">Pricing</Link></nav>
         </header>
 
         <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
