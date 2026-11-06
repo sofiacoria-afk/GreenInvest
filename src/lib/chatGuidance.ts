@@ -20,12 +20,12 @@ export const educationNotice = "GREENInvest provides educational information, no
 export const guardrailMessage = "I cannot tell you which stock to buy or sell or predict guaranteed returns. I can help you compare publicly reported ESG information and explore GREENInvest research instead.";
 
 export function isDirectAdviceRequest(value: string): boolean {
-  const normalized = value.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+  const normalized = value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   // A small educational demo guardrail, not comprehensive natural-language moderation.
-  const directTrading = /\\b(buy|sell|purchase|trade|invest in|comprar|vender|invertir en)\\b/.test(normalized);
-  const financialTarget = /\\b(stock|stocks|share|shares|ticker|investment|investments|acciones|accion|bolsa|cemex|bimbo|femsa|walmart|america movil|crypto|bitcoin)\\b/.test(normalized);
-  const adviceRequest = /\\b(should i|which|what|recommend|best|pick|choose|tell me|guaranteed|guarantee|profit|que|cual|recomiendas|deberia|mejor|ganancia|garantiz)/.test(normalized);
-  return (directTrading && (financialTarget || adviceRequest)) || (financialTarget && adviceRequest && /\\b(buy|sell|invest|comprar|vender|invertir|return|profit|ganancia|rendimiento)\\b/.test(normalized));
+  const directTrading = /\b(buy|sell|purchase|trade|invest in|comprar|vender|invertir en)\b/.test(normalized);
+  const financialTarget = /\b(stock|stocks|share|shares|ticker|investment|investments|acciones|accion|bolsa|cemex|bimbo|femsa|walmart|america movil|crypto|bitcoin)\b/.test(normalized);
+  const adviceRequest = /\b(should i|which|what|recommend|best|pick|choose|tell me|guaranteed|guarantee|profit|que|cual|recomiendas|deberia|mejor|ganancia|garantiz)/.test(normalized);
+  return (directTrading && (financialTarget || adviceRequest)) || (financialTarget && adviceRequest && /\b(buy|sell|invest|comprar|vender|invertir|return|profit|ganancia|rendimiento)\b/.test(normalized));
 }
 
 export function buildGuidedResult(answers: IntakeAnswers): GuidedResult {
