@@ -46,9 +46,9 @@ export default function ChatPage() {
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["01", "Answer 3 questions", "Tell us your profile, goal, and topic."],
-              ["02", "Confirm your understanding", "Review the educational disclaimer."],
-              ["03", "Explore ESG guidance", "Read your summary and visit useful pages."],
-              ["04", "Save and rate", "Store your result and submit feedback."],
+              ["02", "Review the results", "See available financial and environmental data."],
+              ["03", "Human checkpoint", "Acknowledge the educational limits."],
+              ["04", "Explore, save and rate", "Open suggested pages and submit feedback."],
             ].map(([number, title, description]) => (
               <div key={number} className="rounded-2xl border border-sky-100 bg-white p-4">
                 <span className="text-sm font-black text-teal-700">{number}</span>
