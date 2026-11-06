@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CompanySnapshot from "./CompanySnapshot";
 import { useMemo, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
 import {
@@ -33,7 +34,7 @@ export default function ChatWorkspace() {
 
   const complete = step >= intakeQuestions.length;
   const ready = complete && acknowledged;
-  const result = ready ? buildGuidedResult(answers as IntakeAnswers) : null;
+  const result = complete ? buildGuidedResult(answers as IntakeAnswers) : null;
 
   function reset() {
     setAnswers({});
@@ -74,7 +75,7 @@ export default function ChatWorkspace() {
   }
 
   async function saveChat(): Promise<string | null> {
-    if (!result || !supabase) {
+    if (!ready || !result || !supabase) {
       setSaveState("error");
       setSaveMessage("Chat is incomplete or Supabase is not configured.");
       return null;
@@ -159,26 +160,34 @@ export default function ChatWorkspace() {
               </div>
             ) : null
           ))}
+          {result && (
+            <div className="space-y-4">
+              <CompanySnapshot topic={answers.topic ?? ""} />
+              <div className="space-y-3 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-sky-50 to-white p-5">
+                <h3 className="text-xl font-bold text-emerald-950">Your GREENInvest guidance</h3>
+                <p>{result.introduction}</p>
+                <p>{result.explanation}</p>
+                <p><strong>Suggested next step:</strong> {result.nextStep}</p>
+                <p className="text-xs text-slate-600">Educational overview only. Continue below to acknowledge the limits and access suggested pages.</p>
+              </div>
+            </div>
+          )}
           {complete && !acknowledged && (
             <div className="rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 p-5">
               <h3 className="font-bold text-amber-950">Human checkpoint</h3>
               <p className="mt-2 text-sm text-amber-950">{educationNotice}</p>
-              <button type="button" onClick={() => setAcknowledged(true)} className="mt-4 rounded-xl bg-emerald-800 px-4 py-2 font-semibold text-white hover:bg-emerald-900">I understand — show my guidance</button>
+              <button type="button" onClick={() => setAcknowledged(true)} className="mt-4 rounded-xl bg-emerald-800 px-4 py-2 font-semibold text-white hover:bg-emerald-900">I understand — continue</button>
             </div>
           )}
-          {result && (
-            <div className="space-y-3 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-sky-50 to-white p-5">
-              <h3 className="text-xl font-bold text-emerald-950">Your GREENInvest guidance</h3>
-              <p>{result.introduction}</p>
-              <p>{result.explanation}</p>
-              <p><strong>Suggested next step:</strong> {result.nextStep}</p>
-              <div className="flex flex-wrap gap-2">{result.links.map((link) => (
+          {ready && result && (
+            <div className="rounded-xl border border-emerald-200 bg-white p-4">
+              <h3 className="font-bold text-emerald-950">Continue exploring GREENInvest</h3>
+              <div className="mt-3 flex flex-wrap gap-2">{result.links.map((link) => (
                 <Link key={link.href} href={link.href} className="rounded-xl bg-emerald-800 px-3 py-2 text-sm font-bold text-white hover:bg-emerald-900">{link.label} ↗</Link>
               ))}</div>
-              <p className="text-xs text-emerald-950">{educationNotice}</p>
             </div>
           )}
-          {result && <div className="space-y-3 border-t border-slate-200 pt-5">
+          {ready && result && <div className="space-y-3 border-t border-slate-200 pt-5">
             <button type="button" onClick={() => void saveChat()} disabled={saveState === "saving" || saveState === "saved"} className="rounded-xl bg-emerald-800 px-4 py-3 font-bold text-white disabled:opacity-60">{saveState === "saving" ? "Saving..." : saveState === "saved" ? "Saved ✓" : "Save chat summary"}</button>
             {saveMessage && <p role="status" className={"text-sm " + (saveState === "error" ? "text-red-700" : "text-emerald-800")}>{saveMessage}</p>}
             <p className="font-semibold">Was this helpful?</p>
