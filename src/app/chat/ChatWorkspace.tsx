@@ -23,6 +23,7 @@ export default function ChatWorkspace() {
   const [acknowledged, setAcknowledged] = useState(false);
   const [advicePrompt, setAdvicePrompt] = useState("");
   const [guardrailTriggered, setGuardrailTriggered] = useState(false);
+  const [guardrailChecked, setGuardrailChecked] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [saveMessage, setSaveMessage] = useState("");
   const [sessionId, setSessionId] = useState<string | null>(null);
@@ -40,6 +41,7 @@ export default function ChatWorkspace() {
     setAcknowledged(false);
     setAdvicePrompt("");
     setGuardrailTriggered(false);
+    setGuardrailChecked(false);
     setSaveState("idle");
     setSaveMessage("");
     setSessionId(null);
@@ -57,11 +59,8 @@ export default function ChatWorkspace() {
 
   function tryGuardrail() {
     if (!advicePrompt.trim()) return;
-    if (isDirectAdviceRequest(advicePrompt)) {
-      setGuardrailTriggered(true);
-    } else {
-      setGuardrailTriggered(false);
-    }
+    setGuardrailChecked(true);
+    setGuardrailTriggered(isDirectAdviceRequest(advicePrompt));
   }
 
   async function ensureAnonymousUser() {
@@ -131,8 +130,8 @@ export default function ChatWorkspace() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_290px]">
-      <section aria-label="Guided assistant chat" className="overflow-hidden rounded-3xl border border-emerald-200 bg-white shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-emerald-950 px-6 py-5 text-white">
+      <section aria-label="Guided assistant chat" className="overflow-hidden rounded-3xl border border-emerald-200 bg-white shadow-lg shadow-emerald-100/60">
+        <div className="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-emerald-950 via-teal-800 to-sky-800 px-6 py-5 text-white">
           <div>
             <h2 className="text-xl font-bold">GREENInvest Assistant</h2>
             <p className="mt-1 text-sm text-emerald-100">Guided conversation · No live AI API</p>
@@ -140,7 +139,7 @@ export default function ChatWorkspace() {
           <button type="button" onClick={reset} className="rounded-xl border border-white/40 px-3 py-2 text-sm font-semibold hover:bg-white/10">Start over</button>
         </div>
         <div className="space-y-5 p-5 sm:p-7">
-          <div className="max-w-[95%] rounded-2xl rounded-tl-sm bg-emerald-50 p-4 text-slate-800">{initialNotice}</div>
+          <div className="max-w-[95%] rounded-2xl rounded-tl-sm border border-teal-100 bg-gradient-to-r from-emerald-50 to-sky-50 p-4 text-slate-800">{initialNotice}</div>
           {intakeQuestions.map((question, index) => (
             index <= step ? (
               <div key={question.id} className="space-y-3">
@@ -161,14 +160,14 @@ export default function ChatWorkspace() {
             ) : null
           ))}
           {complete && !acknowledged && (
-            <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5">
+            <div className="rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 to-orange-50 p-5">
               <h3 className="font-bold text-amber-950">Human checkpoint</h3>
               <p className="mt-2 text-sm text-amber-950">{educationNotice}</p>
               <button type="button" onClick={() => setAcknowledged(true)} className="mt-4 rounded-xl bg-emerald-800 px-4 py-2 font-semibold text-white hover:bg-emerald-900">I understand — show my guidance</button>
             </div>
           )}
           {result && (
-            <div className="space-y-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+            <div className="space-y-3 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-sky-50 to-white p-5">
               <h3 className="text-xl font-bold text-emerald-950">Your GREENInvest guidance</h3>
               <p>{result.introduction}</p>
               <p>{result.explanation}</p>
@@ -192,18 +191,33 @@ export default function ChatWorkspace() {
         </div>
       </section>
       <aside className="space-y-5">
-        <div className="rounded-2xl border border-emerald-200 bg-white p-5">
-          <h2 className="text-lg font-bold text-emerald-950">How it works</h2>
-          <p className="mt-3 text-sm text-slate-600">1. Answer three questions.<br />2. Acknowledge educational limitations.<br />3. Explore relevant ESG explanations and pages.<br />4. Save your summary and rate it.</p>
-        </div>
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-          <h2 className="text-lg font-bold text-amber-950">Safety guardrail</h2>
-          <p className="mt-2 text-sm text-amber-900">Try entering a direct stock purchase request to see how the guide responds.</p>
-          <label htmlFor="advice-prompt" className="mt-4 block text-sm font-semibold text-amber-950">Test question</label>
-          <textarea id="advice-prompt" maxLength={240} value={advicePrompt} onChange={(e) => { setAdvicePrompt(e.target.value); setGuardrailTriggered(false); }} placeholder="Which stock should I buy?" rows={3} className="mt-2 w-full rounded-xl border border-amber-300 bg-white p-3 text-sm text-slate-900" />
-          <button type="button" onClick={tryGuardrail} className="mt-2 rounded-xl bg-amber-900 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-950">Check question</button>
-          {advicePrompt.trim() && !guardrailTriggered && !isDirectAdviceRequest(advicePrompt) && <p role="status" className="mt-3 text-sm text-amber-950">This prototype answers using the three guided questions above; open-ended chat is outside this week&apos;s scope.</p>}
-          {guardrailTriggered && <p role="alert" className="mt-3 rounded-lg border border-amber-300 bg-white p-3 text-sm font-medium text-amber-950">{guardrailMessage}</p>}
+        <div className="rounded-3xl border border-amber-300 bg-gradient-to-b from-amber-50 via-orange-50 to-white p-5 shadow-sm">
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="rounded-xl bg-amber-200 px-3 py-2 text-xl">🛡️</span>
+            <h2 className="text-lg font-extrabold text-amber-950">Safety guardrail</h2>
+          </div>
+          <p className="mt-3 text-sm leading-6 text-amber-950">This is a <strong>test of the chatbot&apos;s safety rule</strong>. Try asking for a specific stock recommendation. It should refuse to tell you what to buy or sell.</p>
+          <p className="mt-3 text-xs font-bold uppercase tracking-wide text-amber-900">Try an example</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button type="button" onClick={() => {setAdvicePrompt("Which stock should I buy?");setGuardrailChecked(false);}} className="rounded-xl border border-amber-400 bg-white px-3 py-2 text-xs font-semibold text-amber-950 hover:bg-amber-100">Stock advice request</button>
+            <button type="button" onClick={() => {setAdvicePrompt("What does ESG mean?");setGuardrailChecked(false);}} className="rounded-xl border border-teal-300 bg-white px-3 py-2 text-xs font-semibold text-teal-900 hover:bg-teal-50">ESG education question</button>
+          </div>
+          <label htmlFor="advice-prompt" className="mt-4 block text-sm font-bold text-amber-950">Your question</label>
+          <textarea id="advice-prompt" maxLength={240} value={advicePrompt} onChange={(e) => { setAdvicePrompt(e.target.value); setGuardrailChecked(false); }} placeholder="Example: Which stock should I buy?" rows={3} className="mt-2 w-full rounded-xl border border-amber-300 bg-white p-3 text-sm text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600" />
+          <button type="button" disabled={!advicePrompt.trim()} onClick={tryGuardrail} className="mt-2 w-full rounded-xl bg-amber-900 px-4 py-3 text-sm font-bold text-white hover:bg-amber-950 disabled:cursor-not-allowed disabled:opacity-50">Check safety response →</button>
+          {guardrailChecked && (guardrailTriggered ? (
+            <div role="alert" className="mt-4 rounded-xl border border-orange-300 bg-white p-4 text-sm text-amber-950">
+              <p className="mb-2 font-black text-orange-800">✓ Guardrail activated</p>
+              <p>{guardrailMessage}</p>
+              <Link href="/research" className="mt-3 inline-block font-bold text-teal-800 underline">Explore research instead ↗</Link>
+            </div>
+          ) : (
+            <div role="status" className="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-950">
+              <p className="mb-1 font-bold">Educational question received</p>
+              <p>This demo does not generate open-ended replies. Please use the three guided questions in the main chat to explore ESG topics. The safety check only flags simple investment advice requests.</p>
+            </div>
+          ))}
+          <p className="mt-4 text-xs leading-5 text-amber-900">This is a keyword-based safety demonstration, not a comprehensive financial advice filter.</p>
         </div>
       </aside>
     </div>
