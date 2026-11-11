@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import ImpactAndRoadmap from "./ImpactAndRoadmap";
 import { useState } from "react";
 
 const tour = [
@@ -119,6 +120,7 @@ export default function DemoPage() {
             <Link href="/docs" className="mt-5 inline-flex rounded-xl bg-emerald-700 px-5 py-3 text-sm font-bold text-white">View Documentation ↗</Link>
           </div>
         </section>
+        <ImpactAndRoadmap />
       </div>
     </main>
   );
