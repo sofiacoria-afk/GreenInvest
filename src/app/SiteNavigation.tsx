@@ -13,6 +13,7 @@ const links = [
   { href: "/chat", label: "Chat" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/docs", label: "Docs" },
+  { href: "/demo", label: "Demo" },
 ];
 
 export default function SiteNavigation() {
