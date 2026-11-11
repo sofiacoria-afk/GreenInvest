@@ -56,15 +56,15 @@ export default function DocsPage() {
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
       <div className="mx-auto max-w-6xl">
         <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">Week 6 · Documentation</p>
-        <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">Prompt Library & Build Logs</h1>
+        <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">How GREENInvest Was Built</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-          Explore all six GREENInvest modules in one place: what each week aimed to solve,
-          what was built, the coding prompt focus and the main development decisions.
-          Everything below is available directly on this page.
+          This page shows how GREENInvest grew over six weeks. Each section explains
+          what we built, what we asked the coding tools to help with, and the main
+          decisions or changes made along the way.
         </p>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-600">
-          Prompt focus entries are concise summaries, not verbatim transcripts of historical coding prompts.
-          Testing results are not described as completed unless verified.
+          The prompt descriptions are short summaries, not exact copies of past prompts.
+          Test results are only counted when they have actually been checked.
         </p>
 
         <section className="mt-9 grid gap-5 md:grid-cols-2" aria-label="Six-week module documentation">
