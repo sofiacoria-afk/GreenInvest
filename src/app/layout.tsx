@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import SiteNavigation from "./SiteNavigation";
 
 export const metadata: Metadata = {
   title: "GREENInvest",
@@ -11,7 +12,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body><SiteNavigation />{children}</body>
     </html>
   );
 }

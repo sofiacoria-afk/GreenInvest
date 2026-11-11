@@ -1,22 +1,9 @@
-import Link from "next/link";
 import ChatWorkspace from "./ChatWorkspace";
 
 export default function ChatPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-sky-50 via-emerald-50 to-amber-50 px-4 py-8 text-slate-900">
       <div className="mx-auto max-w-6xl">
-        <nav aria-label="GREENInvest navigation" className="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-5">
-          <Link href="/" className="text-2xl font-extrabold text-emerald-900">GREEN<span className="text-emerald-600">Invest</span></Link>
-          <div className="flex flex-wrap items-center gap-4 text-sm font-semibold text-emerald-900">
-            <Link href="/" className="hover:underline">Home</Link>
-            <Link href="/core" className="hover:underline">Core</Link>
-            <Link href="/research" className="hover:underline">Research</Link>
-            <Link href="/product" className="hover:underline">Product</Link>
-            <Link href="/pricing" className="hover:underline">Pricing</Link>
-            <Link href="/marketing" className="hover:underline">Marketing</Link>
-            <Link href="/chat" aria-current="page" className="rounded-xl bg-emerald-700 px-5 py-2.5 text-white shadow-sm ring-2 ring-emerald-200 hover:bg-emerald-800">Chat</Link>
-          </div>
-        </nav>
 
         <header className="mt-8 grid overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950 via-emerald-800 to-teal-700 text-white shadow-xl md:grid-cols-[1.2fr_0.8fr]">
           <div className="p-8 sm:p-10">
