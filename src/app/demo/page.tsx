@@ -48,10 +48,10 @@ export default function DemoPage() {
       <div className="mx-auto max-w-6xl">
         <section className="rounded-3xl bg-gradient-to-r from-emerald-950 via-emerald-800 to-teal-700 p-8 text-white shadow-xl sm:p-12">
           <p className="text-sm font-bold uppercase tracking-widest text-lime-300">Week 6 · Integrated Venture</p>
-          <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl">Explore GREENInvest in one guided tour.</h1>
+          <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl">GREENInvest Demo: See How the Platform Works</h1>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-emerald-50">
-            Learn how the existing tools work together to connect company financial information,
-            environmental context and responsible educational decisions.
+            Take a step-by-step tour of GREENInvest. Visit the tools developed throughout the course,
+            explore financial and environmental information, and see how saved results and educational guidance work together.
           </p>
           <a href="#guided-tour" className="mt-7 inline-flex rounded-xl bg-white px-6 py-3 font-bold text-emerald-900 hover:bg-emerald-50">Start guided tour ↓</a>
           <p className="mt-4 text-sm text-emerald-100">Educational demonstration · No live AI advisor · No buy or sell recommendations</p>
