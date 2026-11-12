@@ -22,7 +22,7 @@ For **each of the five users**, document:
 | --- | --- | --- | --- | --- | --- | --- |
 | User 1 | Not supplied | Invited to tour, company search, dashboard/docs, chat | Answered yes to understanding and ease of use; reported nothing broken; suggested **“put name of company instead of ticker”** | Make company selection clearer for non-experts | Implemented company-name dropdown with optional manual ticker, commit `67cd634`; live retest pending | Pending |
 | User 2 | Not supplied | Same invitation; individual tasks unconfirmed | “Me gusta mucho el concepto de la empresa, especialmente para financieros como yo en donde puedes ver el valor y flujos de todas las empresas públicas, lo que más me gustó fue su GUIDED ASSISTANT, ya que hace que la página sea más clara” | Positive reaction to the concept and guided experience; no specific defect reported | Keep the guided experience; no corrective change requested | Not required unless changed |
-| User 3 | Not supplied | Same invitation; individual tasks unconfirmed | Understood: yes; easy navigation: yes; failures: no; **“top dashboard for smartphone version takes up too much space”** | Mobile top navigation/header uses too much screen space | Implemented collapsible mobile navigation, commit `67cd634`; live retest pending | Pending |
+| User 3 | Not supplied | Same invitation; individual tasks unconfirmed | Understood: yes; easy navigation: yes; failures: no; **“top dashboard for smartphone version takes up too much space”** | Mobile top navigation/header uses too much screen space | Initial collapsible mobile navigation in commit `67cd634`; user reported that all buttons still appeared on a phone. Added explicit 767px mobile/desktop CSS rules and device viewport in commit `fa6a96a`; deployment and live retest pending | Pending |
 | User 4 | Not supplied | Same invitation; individual tasks unconfirmed | Understood: yes; easy navigation: yes; failures: no; **“I like it as it is”** | Positive feedback; no issue reported | No change needed | Not required unless changed |
 | User 5 | Not supplied | Same invitation; individual tasks unconfirmed | Understood: yes; easy navigation: yes; everything worked; **“it has to much information and it is repetitiva in some aspects, it has more information about the platform than about the actualo product”** | Repetitive explanatory copy obscures product value | Shortened copy in Home/Demo, removed duplicate Home links, added Product CTA, commit `67cd634`; live retest pending | Pending |
 
@@ -37,7 +37,7 @@ For **each of the five users**, document:
 | Test | Finding | Code change | Retest status |
 | --- | --- | --- | --- |
 | User 1 | Tickers are less intuitive than company names | Home company-name selector with six examples + manual ticker fallback | Pending on deployed Preview |
-| User 3 | Mobile header takes too much space | Native collapsible Menu on mobile; desktop links remain visible | Pending on phone |
+| User 3 | Mobile header takes too much space; first version still showed links on a phone | Added explicit viewport and mobile CSS after the report (commit `fa6a96a`) | Pending on new deployment |
 | User 5 | Too much repetitive platform text | Simplified Home and Demo copy; removed duplicate navigation; linked to Product | Pending user feedback |
 
 The changes above are **implemented in GitHub**, not yet verified in a live deployment. No user retest results have been invented.
@@ -63,7 +63,7 @@ Mark the result only after testing the deployed build.
 | Date | Test and tester | Finding / exact evidence | Change and commit | Retest and evidence |
 | --- | --- | --- | --- | --- |
 | Date not supplied | User 1 | Ticker labels confusing; suggested company names | Named example-company selector + manual ticker fallback; [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb) | Pending: check example company and custom ticker search in Preview |
-| Date not supplied | User 3 | Mobile top navigation takes too much space | Collapsible menu on small screens; [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb) | Pending: open site on phone, expand menu, visit Demo and go back |
+| Date not supplied | User 3 | Mobile top navigation takes too much space; later reported buttons remained visible on phone | Initial menu [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb); explicit viewport + mobile CSS [fix](https://github.com/sofiacoria-afk/GreenInvest/commit/fa6a96a0bd7405764e425eebd08480ee5f1752c7) | Pending: verify new deployment on phone; screenshot closed/open menu |
 | Date not supplied | User 5 | Text feels repetitive and platform-focused | Shorter Home/Demo copy, duplicate links removed, Product made more prominent; [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb) | Pending: ask whether Home now explains the actual product more clearly |
 
 ## Submission evidence checklist
