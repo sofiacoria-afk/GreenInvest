@@ -37,10 +37,10 @@ type EnvironmentResult = {
 };
 
 const periodNames: Record<string, string> = {
-  "1mo": "1 mes",
-  "6mo": "6 meses",
-  "1y": "1 año",
-  "5y": "5 años",
+  "1mo": "1 month",
+  "6mo": "6 months",
+  "1y": "1 year",
+  "5y": "5 years",
 };
 
 const statusStyles = {
@@ -81,7 +81,7 @@ export default function Home() {
 
       if (!stockResponse.ok) {
         throw new Error(
-          stockData.error ?? "No fue posible consultar la empresa."
+          stockData.error ?? "Could not retrieve the company."
         );
       }
 
@@ -95,7 +95,7 @@ export default function Home() {
       setError(
         searchError instanceof Error
           ? searchError.message
-          : "Ocurrió un error inesperado."
+          : "An unexpected error occurred."
       );
     } finally {
       setLoading(false);
@@ -109,11 +109,11 @@ export default function Home() {
       <section className="mx-auto w-full min-w-0 max-w-5xl">
         <header className="mb-10">
           <p className="max-w-full break-words text-sm font-semibold uppercase tracking-[0.15em] text-emerald-600 sm:text-base sm:tracking-[0.25em]">
-            Finanzas + sustentabilidad
+            Finance + Sustainability
           </p>
           <h1 className="mt-3 break-words text-4xl font-bold tracking-tight sm:text-5xl">GREENInvest</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-            Busca una empresa para ver su rendimiento financiero y los datos de emisiones disponibles.
+            Search for a company to view its financial performance and available emissions data.
           </p>
           <Link href="/product" className="mt-5 inline-flex max-w-full flex-wrap items-center rounded-xl bg-emerald-700 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-800 sm:px-5 sm:text-base">See what GREENInvest offers →</Link>
         </header>
@@ -123,9 +123,9 @@ export default function Home() {
             onSubmit={searchStock}
             className="min-w-0 rounded-3xl border border-emerald-100 bg-white p-5 shadow-xl shadow-emerald-100/60 sm:p-7"
           >
-            <h2 className="text-2xl font-semibold">Buscar una empresa</h2>
+            <h2 className="text-2xl font-semibold">Search for a company</h2>
             <label className="mt-6 block text-sm font-semibold" htmlFor="company">
-              Elige una empresa por su nombre
+              Choose a company by name
             </label>
             <select
               id="company"
@@ -146,33 +146,33 @@ export default function Home() {
                   {company.name} ({company.ticker})
                 </option>
               ))}
-              <option value="other">Otra empresa (escribir ticker)</option>
+              <option value="other">Other company (enter ticker)</option>
             </select>
             {customTicker && (
               <>
                 <label className="mt-4 block text-sm font-semibold" htmlFor="ticker">
-                  Ticker de Yahoo Finance
+                  Yahoo Finance ticker
                 </label>
                 <input
                   id="ticker"
                   value={ticker}
                   onChange={(event) => setTicker(event.target.value)}
-                  placeholder="Ej. WALMEX.MX o AAPL"
+                  placeholder="e.g., WALMEX.MX or AAPL"
                   required
                   className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 outline-none focus:border-emerald-500"
                 />
                 <p className="mt-2 text-xs text-slate-500">
-                  Para empresas mexicanas normalmente se agrega .MX al ticker.
+                  Mexican stock symbols usually end in .MX.
                 </p>
               </>
             )}
             <p className="mt-2 text-xs text-slate-500">
-              Selecciona una empresa de ejemplo o usa “Otra empresa” para buscar por ticker.
-              Los datos ambientales pueden no estar disponibles para todas.
+              Select a sample company or choose “Other company” to enter a ticker.
+              Environmental data may not be available for every company.
             </p>
 
             <label className="mt-5 block text-sm font-semibold" htmlFor="range">
-              Periodo financiero
+              Financial period
             </label>
             <select
               id="range"
@@ -180,10 +180,10 @@ export default function Home() {
               onChange={(event) => setRange(event.target.value)}
               className="mt-2 w-full rounded-xl border border-emerald-200 bg-white px-4 py-3"
             >
-              <option value="1mo">1 mes</option>
-              <option value="6mo">6 meses</option>
-              <option value="1y">1 año</option>
-              <option value="5y">5 años</option>
+              <option value="1mo">1 month</option>
+              <option value="6mo">6 months</option>
+              <option value="1y">1 year</option>
+              <option value="5y">5 years</option>
             </select>
 
             <button
@@ -191,20 +191,20 @@ export default function Home() {
               disabled={loading}
               className="mt-6 w-full rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white transition hover:bg-emerald-800 disabled:opacity-60"
             >
-              {loading ? "Consultando..." : "Ver resultados"}
+              {loading ? "Loading..." : "View results"}
             </button>
           </form>
 
           <section className="min-w-0 rounded-3xl bg-emerald-900 p-5 text-white shadow-xl sm:p-7">
             {!result && !error && (
               <div className="flex h-full min-h-72 items-center justify-center text-center text-emerald-100">
-                Busca una empresa para ver sus resultados.
+                Search for a company to view its results.
               </div>
             )}
 
             {error && (
               <div className="rounded-2xl bg-red-50 p-5 text-red-800">
-                <p className="font-semibold">No pudimos mostrar el resultado</p>
+                <p className="font-semibold">Could not display results</p>
                 <p className="mt-2 text-sm">{error}</p>
               </div>
             )}
@@ -218,9 +218,9 @@ export default function Home() {
 
                 <div className="mt-8 grid grid-cols-2 gap-4">
                   <div className="rounded-2xl bg-white/10 p-5">
-                    <p className="text-sm text-emerald-200">Precio actual</p>
+                    <p className="text-sm text-emerald-200">Current price</p>
                     <p className="mt-2 text-2xl font-bold">
-                      {result.currentPrice.toLocaleString("es-MX", {
+                      {result.currentPrice.toLocaleString("en-US", {
                         maximumFractionDigits: 2,
                       })}{" "}
                       {result.currency}
@@ -228,7 +228,7 @@ export default function Home() {
                   </div>
                   <div className="rounded-2xl bg-white/10 p-5">
                     <p className="text-sm text-emerald-200">
-                      Rendimiento · {periodNames[result.range]}
+                      Return · {periodNames[result.range]}
                     </p>
                     <p
                       className={`mt-2 text-2xl font-bold ${
@@ -242,8 +242,8 @@ export default function Home() {
                 </div>
 
                 <p className="mt-6 text-xs text-emerald-200">
-                  Fuente: {result.source}. Rendimiento calculado con el primer y
-                  último precio ajustado disponible.
+                  Source: {result.source}. Return calculated using the first and
+                  last available adjusted price.
                 </p>
               </>
             )}
@@ -269,7 +269,7 @@ export default function Home() {
             {environment.changePercent !== undefined && (
               <div className="mt-4 text-sm">
                 <p>
-                  Cambio de Scope 1 + 2:{" "}
+                  Change in Scope 1 + 2:{" "}
                   <strong>
                     {environment.changePercent > 0 ? "+" : ""}
                     {environment.changePercent.toFixed(2)}%
@@ -277,8 +277,8 @@ export default function Home() {
                   ({environment.previousYear}–{environment.latestYear})
                 </p>
                 <p className="mt-1">
-                  Total más reciente:{" "}
-                  {environment.latestTotal?.toLocaleString("es-MX")}{" "}
+                  Latest total:{" "}
+                  {environment.latestTotal?.toLocaleString("en-US")}{" "}
                   {environment.unit}
                 </p>
               </div>
@@ -291,20 +291,20 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
               >
-                Ver fuente: {environment.sourceName}
+                View source: {environment.sourceName}
               </a>
             )}
           </section>
         )}
 
         <p className="mt-8 text-sm text-slate-500">
-          El semáforo muestra la tendencia de emisiones Scope 1 y 2, no califica
-          todo el impacto ambiental de la empresa. GREENInvest es una herramienta
-          educativa y no constituye asesoría financiera.
+          The indicator shows the trend in Scope 1 and 2 emissions; it does not rate
+          a company’s overall environmental impact. GREENInvest is an educational
+          tool and does not provide financial advice.
         </p>
         <p className="mt-3 text-xs text-slate-400">
-          Fuentes de datos: Yahoo Finance, Supabase y reportes oficiales de
-          sustentabilidad de las empresas.
+          Data sources: Yahoo Finance, Supabase and official company
+          sustainability reports.
         </p>
       </section>
     </main>

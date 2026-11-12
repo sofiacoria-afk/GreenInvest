@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
 
   if (!ticker || !/^[A-Z0-9.^=-]{1,15}$/.test(ticker)) {
     return NextResponse.json(
-      { error: "Escribe un ticker válido, por ejemplo WALMEX.MX o AAPL." },
+      { error: "Enter a valid ticker, such as WALMEX.MX or AAPL." },
       { status: 400 }
     );
   }
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
-      throw new Error("Yahoo Finance no respondió correctamente.");
+      throw new Error("Yahoo Finance did not respond successfully.");
     }
 
     const data = (await response.json()) as YahooChartResponse;
@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
 
     if (!result) {
       return NextResponse.json(
-        { error: "No encontramos esa empresa en Yahoo Finance." },
+        { error: "Company not found on Yahoo Finance." },
         { status: 404 }
       );
     }
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
 
     if (prices.length < 2) {
       return NextResponse.json(
-        { error: "No hay suficientes precios para calcular el rendimiento." },
+        { error: "Not enough historical prices to calculate the return." },
         { status: 404 }
       );
     }
@@ -80,7 +80,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       ticker: meta.symbol ?? ticker,
       name: meta.longName ?? meta.shortName ?? ticker,
-      exchange: meta.exchangeName ?? "No disponible",
+      exchange: meta.exchangeName ?? "Unavailable",
       currency: meta.currency ?? "",
       currentPrice: meta.regularMarketPrice ?? lastPrice,
       firstPrice,
@@ -90,7 +90,7 @@ export async function GET(request: NextRequest) {
     });
   } catch {
     return NextResponse.json(
-      { error: "No fue posible consultar Yahoo Finance. Intenta nuevamente." },
+      { error: "Could not reach Yahoo Finance. Please try again." },
       { status: 502 }
     );
   }
