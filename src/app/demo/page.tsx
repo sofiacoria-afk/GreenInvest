@@ -64,8 +64,8 @@ export default function DemoPage() {
           <p className="text-sm font-bold uppercase tracking-widest text-lime-300">Week 6 · Integrated Venture</p>
           <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl">GREENInvest Demo: See How the Platform Works</h1>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-emerald-50">
-            Take a step-by-step tour of GREENInvest. Visit the tools developed throughout the course,
-            explore financial and environmental information, and see how saved results and educational guidance work together.
+            Try company research, pricing, marketing and educational chat in one guided tour.
+            Each step links to a working GREENInvest feature.
           </p>
           <a href="#guided-tour" className="mt-7 inline-flex rounded-xl bg-white px-6 py-3 font-bold text-emerald-900 hover:bg-emerald-50">Start guided tour ↓</a>
           <p className="mt-4 text-sm text-emerald-100">Educational demonstration · No live AI advisor · No buy or sell recommendations</p>
@@ -77,8 +77,8 @@ export default function DemoPage() {
               <p className="text-sm font-bold uppercase tracking-wider text-emerald-700">Step-by-step</p>
               <h2 id="tour-title" className="mt-2 text-3xl font-extrabold">Guided walkthrough</h2>
               <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
-                This is a step-by-step guide to using GREENInvest. It is not a new tool; it brings together
-                all the features developed throughout the course so you can explore how they work.
+                Explore the tools built during the course, one step at a time.
+                Choose a step to visit that feature and try it yourself.
               </p>
             </div>
             <p aria-live="polite" className="text-sm font-semibold text-slate-600">Step {active + 1} of {tour.length}</p>

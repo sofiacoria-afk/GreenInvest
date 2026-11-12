@@ -3,6 +3,15 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 
+const exampleCompanies = [
+  { ticker: "WALMEX.MX", name: "Walmart de México" },
+  { ticker: "BIMBOA.MX", name: "Grupo Bimbo" },
+  { ticker: "CEMEXCPO.MX", name: "Cemex" },
+  { ticker: "FEMSAUBD.MX", name: "FEMSA" },
+  { ticker: "AMXB.MX", name: "América Móvil" },
+  { ticker: "AAPL", name: "Apple" },
+];
+
 type StockResult = {
   ticker: string;
   name: string;
@@ -50,6 +59,7 @@ const statusDots = {
 
 export default function Home() {
   const [ticker, setTicker] = useState("WALMEX.MX");
+  const [customTicker, setCustomTicker] = useState(false);
   const [range, setRange] = useState("1y");
   const [result, setResult] = useState<StockResult | null>(null);
   const [environment, setEnvironment] = useState<EnvironmentResult | null>(null);
@@ -103,11 +113,9 @@ export default function Home() {
           </p>
           <h1 className="mt-3 text-5xl font-bold tracking-tight">GREENInvest</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-            Consulta el rendimiento financiero y la evolución de emisiones de
-            empresas públicas de México y Estados Unidos.
+            Busca una empresa para ver su rendimiento financiero y los datos de emisiones disponibles.
           </p>
-          <Link href="/marketing" className="mt-5 inline-flex rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">Explore our marketing campaign →</Link>
-          <nav aria-label="More GREENInvest pages" className="mt-5 flex flex-wrap gap-4 text-sm font-semibold text-emerald-800"><Link href="/core">Core</Link><Link href="/research">Research</Link><Link href="/product">Product</Link><Link href="/pricing">Pricing</Link><Link href="/chat">Chat Assistant</Link></nav>
+          <Link href="/product" className="mt-5 inline-flex rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">See what GREENInvest offers →</Link>
         </header>
 
         <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
@@ -116,18 +124,51 @@ export default function Home() {
             className="rounded-3xl border border-emerald-100 bg-white p-7 shadow-xl shadow-emerald-100/60"
           >
             <h2 className="text-2xl font-semibold">Buscar una empresa</h2>
-            <label className="mt-6 block text-sm font-semibold" htmlFor="ticker">
-              Ticker de Yahoo Finance
+            <label className="mt-6 block text-sm font-semibold" htmlFor="company">
+              Elige una empresa por su nombre
             </label>
-            <input
-              id="ticker"
-              value={ticker}
-              onChange={(event) => setTicker(event.target.value)}
-              placeholder="Ej. WALMEX.MX o AAPL"
-              className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 outline-none focus:border-emerald-500"
-            />
+            <select
+              id="company"
+              value={customTicker ? "other" : ticker}
+              onChange={(event) => {
+                if (event.target.value === "other") {
+                  setCustomTicker(true);
+                  setTicker("");
+                } else {
+                  setCustomTicker(false);
+                  setTicker(event.target.value);
+                }
+              }}
+              className="mt-2 w-full rounded-xl border border-emerald-200 bg-white px-4 py-3"
+            >
+              {exampleCompanies.map((company) => (
+                <option key={company.ticker} value={company.ticker}>
+                  {company.name} ({company.ticker})
+                </option>
+              ))}
+              <option value="other">Otra empresa (escribir ticker)</option>
+            </select>
+            {customTicker && (
+              <>
+                <label className="mt-4 block text-sm font-semibold" htmlFor="ticker">
+                  Ticker de Yahoo Finance
+                </label>
+                <input
+                  id="ticker"
+                  value={ticker}
+                  onChange={(event) => setTicker(event.target.value)}
+                  placeholder="Ej. WALMEX.MX o AAPL"
+                  required
+                  className="mt-2 w-full rounded-xl border border-emerald-200 px-4 py-3 outline-none focus:border-emerald-500"
+                />
+                <p className="mt-2 text-xs text-slate-500">
+                  Para empresas mexicanas normalmente se agrega .MX al ticker.
+                </p>
+              </>
+            )}
             <p className="mt-2 text-xs text-slate-500">
-              Para empresas mexicanas agrega .MX al ticker.
+              Selecciona una empresa de ejemplo o usa “Otra empresa” para buscar por ticker.
+              Los datos ambientales pueden no estar disponibles para todas.
             </p>
 
             <label className="mt-5 block text-sm font-semibold" htmlFor="range">
