@@ -41,12 +41,12 @@ export default function SiteNavigation() {
 
   return (
     <header className="border-b border-emerald-100 bg-white text-emerald-950">
-      <nav aria-label="Main navigation" className="mx-auto max-w-7xl px-5 py-3 md:flex md:items-center md:gap-5 md:py-4">
+      <nav aria-label="Main navigation" className="greeninvest-site-nav mx-auto max-w-7xl px-5 py-3 md:flex md:items-center md:gap-5 md:py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="shrink-0 text-xl font-extrabold tracking-tight">
             GREEN<span className="text-emerald-600">Invest</span>
           </Link>
-          <details key={pathname} className="relative md:hidden">
+          <details key={pathname} className="greeninvest-mobile-nav relative">
             <summary className="cursor-pointer list-none rounded-lg border border-emerald-200 px-4 py-2 text-sm font-semibold text-emerald-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600">
               Menu ☰
             </summary>
@@ -55,7 +55,7 @@ export default function SiteNavigation() {
             </div>
           </details>
         </div>
-        <div className="hidden flex-1 flex-wrap items-center gap-1 text-sm font-semibold md:flex">
+        <div className="greeninvest-desktop-nav flex-1 flex-wrap items-center gap-1 text-sm font-semibold">
           {navigationLinks(false)}
         </div>
       </nav>

@@ -12,3 +12,17 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Week 6 user-test fix: keep navigation compact on real mobile viewports.
+   These rules are explicit so the mobile menu does not depend solely on utility classes. */
+.greeninvest-mobile-nav { display: none; }
+.greeninvest-desktop-nav { display: flex; }
+@media (max-width: 767px) {
+  .greeninvest-mobile-nav { display: block !important; }
+  .greeninvest-desktop-nav { display: none !important; }
+  .greeninvest-site-nav { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+}
+@media (min-width: 768px) {
+  .greeninvest-mobile-nav { display: none !important; }
+  .greeninvest-desktop-nav { display: flex !important; }
+}
