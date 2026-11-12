@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -18,6 +19,14 @@ const links = [
 
 export default function SiteNavigation() {
   const pathname = usePathname();
+
+  useEffect(() => {
+    const last = window.sessionStorage.getItem("greeninvestCurrentRoute");
+    if (last && last !== pathname) {
+      window.sessionStorage.setItem("greeninvestPreviousRoute", last);
+    }
+    window.sessionStorage.setItem("greeninvestCurrentRoute", pathname);
+  }, [pathname]);
 
   return (
     <header className="border-b border-emerald-100 bg-white text-emerald-950">

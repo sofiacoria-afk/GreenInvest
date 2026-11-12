@@ -8,9 +8,21 @@ const impact = [
 ];
 
 const roadmap = [
-  { phase: "V2 · Data quality", title: "Improve verified environmental coverage", detail: "Expand comparable, source-verified emission records and show reporting years and missing-data explanations." },
-  { phase: "V2 · Usability", title: "Create clearer comparisons", detail: "Add simple side-by-side company comparisons after confirming that units, time ranges and sectors are comparable." },
-  { phase: "V2 · Trust & access", title: "Strengthen account-based saved results", detail: "Add opt-in user accounts and private saved dashboards, with tested access controls and deletion options." },
+  {
+    phase: "V2 · Mexico",
+    title: "Expand to the full Mexican stock market",
+    detail: "Gradually add more companies listed on the Bolsa Mexicana de Valores, aiming for full coverage as reliable financial and environmental data become available.",
+  },
+  {
+    phase: "V2 · International",
+    title: "Explore foreign stock markets",
+    detail: "Extend GREENInvest to companies listed in other countries, with clear currency, reporting-year and data-comparability explanations.",
+  },
+  {
+    phase: "Future vision · Investing",
+    title: "Explain how investing works",
+    detail: "Build a beginner-friendly guide to investing, including step-by-step explanations of accounts, orders and risks. Any future real trading would require appropriate legal and regulatory safeguards and qualified partners; it is not available today.",
+  },
 ];
 
 export default function ImpactAndRoadmap() {

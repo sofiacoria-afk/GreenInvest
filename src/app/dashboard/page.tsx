@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import BackToPrevious from "../BackToPrevious";
 import { getSupabase } from "@/lib/supabase";
 
 type SavedRecord = {
@@ -88,6 +89,7 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
       <div className="mx-auto max-w-6xl">
+        <BackToPrevious />
         <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">Week 6 · Integrated Venture</p>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
           <div>

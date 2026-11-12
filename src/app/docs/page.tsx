@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BackToPrevious from "../BackToPrevious";
 
 const modules = [
   {
@@ -55,6 +56,7 @@ export default function DocsPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
       <div className="mx-auto max-w-6xl">
+        <BackToPrevious />
         <p className="text-sm font-bold uppercase tracking-widest text-emerald-700">Week 6 · Documentation</p>
         <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">How GREENInvest Was Built</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
