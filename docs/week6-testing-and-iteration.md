@@ -50,7 +50,7 @@ Mark the result only after testing the deployed build.
 
 | Route / workflow | Verification | Result | Screenshot / notes |
 | --- | --- | --- | --- |
-| `/` | Company search and financial/environmental result or clear error state | Pending | |
+| `/` | Company search and financial/environmental result or clear error state | Partial / issue found | Financial data for CEMEX displayed in user screenshot; environmental API reported missing Supabase configuration in Preview. English UI/API messages corrected in commit `3a8c7fe`; verify Vercel Preview environment variables and retest. |
 | `/core` | Generate, save and reload Core output | Pending | |
 | `/research` | Explore research, filters, save and reload | Pending | |
 | `/product` | Page loads and product details remain visible | Pending | |
@@ -68,6 +68,11 @@ Mark the result only after testing the deployed build.
 | Date not supplied | User 1 | Ticker labels confusing; suggested company names | Named example-company selector + manual ticker fallback; [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb) | Pending: check example company and custom ticker search in Preview |
 | Date not supplied | User 3 | Mobile top navigation takes too much space; later reported buttons remained visible on phone | Initial menu [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb); explicit viewport + mobile CSS [fix](https://github.com/sofiacoria-afk/GreenInvest/commit/fa6a96a0bd7405764e425eebd08480ee5f1752c7) | Project owner screenshot on phone shows Menu button and expanded links; original tester retest pending |
 | Date not supplied | User 5 | Text feels repetitive and platform-focused | Shorter Home/Demo copy, duplicate links removed, Product made more prominent; [commit](https://github.com/sofiacoria-afk/GreenInvest/commit/67cd634239ac7a00153858af9cd220e92238fceb) | Pending: ask whether Home now explains the actual product more clearly |
+
+## Regression finding: environmental configuration and language
+- **Observed:** CEMEX financial information returned in Preview; environmental response said the database was not connected. This indicates missing Supabase public URL/anon key in that deployment, not missing emissions rows. Confirm Preview environment scope and redeploy before judging data availability.
+- **Observed:** Home and financial/environmental API text remained in Spanish. Updated Home, API messages and the document language to English in [commit `3a8c7fe`](https://github.com/sofiacoria-afk/GreenInvest/commit/3a8c7fe53a99f61bf4b74fc0aa2de120e2dd8606).
+- **Retest:** Pending verification on a new Preview deployment; do not mark the Home regression as passed before the environmental data is restored or its legitimate absence is confirmed.
 
 ## Submission evidence checklist
 - Week 6 GitHub commit screenshots showing **correct dates**, and repository URL.
