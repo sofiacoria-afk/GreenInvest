@@ -105,23 +105,23 @@ export default function Home() {
   const positive = (result?.returnPercent ?? 0) >= 0;
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-emerald-50 to-white px-5 py-12 text-emerald-950">
-      <section className="mx-auto max-w-5xl">
+    <main className="min-h-screen min-w-0 overflow-x-hidden bg-gradient-to-b from-emerald-50 to-white px-5 py-8 text-emerald-950 sm:py-12">
+      <section className="mx-auto w-full min-w-0 max-w-5xl">
         <header className="mb-10">
-          <p className="font-semibold uppercase tracking-[0.25em] text-emerald-600">
+          <p className="max-w-full break-words text-sm font-semibold uppercase tracking-[0.15em] text-emerald-600 sm:text-base sm:tracking-[0.25em]">
             Finanzas + sustentabilidad
           </p>
-          <h1 className="mt-3 text-5xl font-bold tracking-tight">GREENInvest</h1>
+          <h1 className="mt-3 break-words text-4xl font-bold tracking-tight sm:text-5xl">GREENInvest</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-600">
             Busca una empresa para ver su rendimiento financiero y los datos de emisiones disponibles.
           </p>
-          <Link href="/product" className="mt-5 inline-flex rounded-xl bg-emerald-700 px-5 py-3 font-semibold text-white hover:bg-emerald-800">See what GREENInvest offers →</Link>
+          <Link href="/product" className="mt-5 inline-flex max-w-full flex-wrap items-center rounded-xl bg-emerald-700 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-800 sm:px-5 sm:text-base">See what GREENInvest offers →</Link>
         </header>
 
-        <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
+        <div className="grid min-w-0 gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
           <form
             onSubmit={searchStock}
-            className="rounded-3xl border border-emerald-100 bg-white p-7 shadow-xl shadow-emerald-100/60"
+            className="min-w-0 rounded-3xl border border-emerald-100 bg-white p-5 shadow-xl shadow-emerald-100/60 sm:p-7"
           >
             <h2 className="text-2xl font-semibold">Buscar una empresa</h2>
             <label className="mt-6 block text-sm font-semibold" htmlFor="company">
@@ -139,7 +139,7 @@ export default function Home() {
                   setTicker(event.target.value);
                 }
               }}
-              className="mt-2 w-full rounded-xl border border-emerald-200 bg-white px-4 py-3"
+              className="mt-2 block w-full min-w-0 max-w-full rounded-xl border border-emerald-200 bg-white px-3 py-3 text-sm sm:px-4 sm:text-base"
             >
               {exampleCompanies.map((company) => (
                 <option key={company.ticker} value={company.ticker}>
@@ -195,7 +195,7 @@ export default function Home() {
             </button>
           </form>
 
-          <section className="rounded-3xl bg-emerald-900 p-7 text-white shadow-xl">
+          <section className="min-w-0 rounded-3xl bg-emerald-900 p-5 text-white shadow-xl sm:p-7">
             {!result && !error && (
               <div className="flex h-full min-h-72 items-center justify-center text-center text-emerald-100">
                 Busca una empresa para ver sus resultados.
