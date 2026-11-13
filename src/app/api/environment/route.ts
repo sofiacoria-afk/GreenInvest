@@ -15,7 +15,7 @@ type EmissionRow = {
 function unavailable(message: string) {
   return NextResponse.json({
     status: "gray",
-    label: "Información no disponible",
+    label: "Environmental data unavailable",
     message,
   });
 }
@@ -24,13 +24,13 @@ export async function GET(request: NextRequest) {
   const ticker = request.nextUrl.searchParams.get("ticker")?.trim().toUpperCase();
 
   if (!ticker) {
-    return unavailable("Es necesario indicar una empresa.");
+    return unavailable("A company ticker is required.");
   }
 
   const supabase = getSupabase();
 
   if (!supabase) {
-    return unavailable("La base de datos ambiental todavía no está conectada.");
+    return unavailable("Environmental data connection is unavailable. Please check the Supabase configuration for this deployment.");
   }
 
   const { data, error } = await supabase
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     .limit(2);
 
   if (error || !data || data.length < 2) {
-    return unavailable("Se necesitan dos años comparables de emisiones.");
+    return unavailable("Two comparable reporting years of emissions data are needed.");
   }
 
   const [latest, previous] = data as EmissionRow[];
@@ -53,16 +53,16 @@ export async function GET(request: NextRequest) {
     Number(previous.scope_1_tco2e) + Number(previous.scope_2_tco2e);
 
   if (previousTotal <= 0) {
-    return unavailable("El año anterior no contiene un total comparable.");
+    return unavailable("The previous year does not contain a comparable total.");
   }
 
   const changePercent = ((latestTotal / previousTotal) - 1) * 100;
   const status =
     changePercent < -5 ? "green" : changePercent > 5 ? "red" : "yellow";
   const labels = {
-    green: "Emisiones en reducción",
-    yellow: "Emisiones estables",
-    red: "Emisiones en aumento",
+    green: "Emissions decreased",
+    yellow: "Emissions stable",
+    red: "Emissions increased",
   };
 
   return NextResponse.json({
@@ -70,10 +70,10 @@ export async function GET(request: NextRequest) {
     label: labels[status],
     message:
       status === "green"
-        ? "La empresa redujo sus emisiones Scope 1 y 2 más de 5%."
+        ? "The company reduced Scope 1 and 2 emissions by more than 5%."
         : status === "red"
-          ? "La empresa aumentó sus emisiones Scope 1 y 2 más de 5%."
-          : "El cambio de emisiones se mantuvo entre -5% y +5%.",
+          ? "The company increased Scope 1 and 2 emissions by more than 5%."
+          : "Emissions changed by between -5% and +5%.",
     changePercent,
     latestYear: latest.reporting_year,
     previousYear: previous.reporting_year,
